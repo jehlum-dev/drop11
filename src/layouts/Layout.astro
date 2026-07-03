@@ -1,0 +1,49 @@
+---
+import '../styles/global.css';
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="bg-alien-bg text-gray-300 font-space overflow-x-hidden selection:bg-alien-neon selection:text-black">
+    <!-- Custom Cursor -->
+    <div id="cursor" class="fixed w-8 h-8 rounded-full border-2 border-alien-neon pointer-events-none z-[9999] transition-transform duration-100 ease-out mix-blend-difference hidden md:block"></div>
+    <div id="cursor-dot" class="fixed w-2 h-2 bg-alien-cyan rounded-full pointer-events-none z-[9999] transition-transform duration-75 ease-out hidden md:block"></div>
+
+    <!-- Background -->
+    <div class="fixed inset-0 z-[-1] bg-[linear-gradient(rgba(57,255,20,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(57,255,20,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] perspective-grid"></div>
+
+    <slot />
+
+    <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script is:inline>
+        AOS.init({ once: true, offset: 50 });
+        
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                cursorDot.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
+                cursor.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px)`;
+            });
+            document.querySelectorAll('a, button, .cursor-crosshair').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('scale-[2]', 'border-alien-purple');
+                    cursor.classList.remove('border-alien-neon');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('scale-[2]', 'border-alien-purple');
+                    cursor.classList.add('border-alien-neon');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
