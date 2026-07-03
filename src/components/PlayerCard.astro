@@ -1,8 +1,6 @@
 ---
-const { id, name, role, class_spec } = Astro.props;
+const { id, name, role, class_spec, imgUrl } = Astro.props;
 const delay = Astro.props.delay || 0;
-// We'll use a grayscale placeholder to match the aesthetic
-const imgUrl = `https://placehold.co/400x500/111111/555555?text=${id}&font=oswald`;
 ---
 <div data-aos="fade-up" data-aos-delay={delay} class="group border-b border-monolith-border pb-8 hover:border-white transition-colors duration-500">
     <div class="flex justify-between items-end mb-4">

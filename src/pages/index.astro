@@ -3,20 +3,22 @@ import Layout from '../layouts/Layout.astro';
 import PlayerCard from '../components/PlayerCard.astro';
 
 const players = [
-    { id: 'OBS-01', name: 'Z-Xen', role: 'Striker', class_spec: 'Class A' },
-    { id: 'OBS-02', name: 'V-Rekt', role: 'Destroyer', class_spec: 'Class B' },
-    { id: 'OBS-03', name: 'Q-Null', role: 'Quantum', class_spec: 'Class S' },
-    { id: 'OBS-04', name: 'K-Prime', role: 'Modulator', class_spec: 'Class A' },
+    { id: 'DRP-01', name: 'Virat Singh', role: 'Top Order Batsman', class_spec: 'Captain', imgUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+    { id: 'DRP-02', name: 'Rahul Patel', role: 'Opening Batsman', class_spec: 'Vice Capt', imgUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+    { id: 'DRP-03', name: 'David Trent', role: 'Pace Bowler', class_spec: 'Pace Unit', imgUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+    { id: 'DRP-04', name: 'MS Kumar', role: 'Wicket-Keeper', class_spec: 'Gloveman', imgUrl: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+    { id: 'DRP-05', name: 'Sam Rashid', role: 'Spin Bowler', class_spec: 'Spin Unit', imgUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+    { id: 'DRP-06', name: 'Ben Stokes', role: 'All-Rounder', class_spec: 'Finisher', imgUrl: 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
 ];
 ---
-<Layout title="OBSIDIAN | AETHEL">
+<Layout title="DROP11 | CRICKET">
     <nav class="fixed w-full z-50 p-8 mix-blend-difference">
         <div class="flex justify-between items-center border-b border-monolith-border pb-4">
-            <a href="#" class="text-[10px] font-mono tracking-[0.5em] uppercase text-white hover:opacity-50 transition-opacity">Obsidian Aethel</a>
+            <a href="#" class="text-[10px] font-mono tracking-[0.5em] uppercase text-white hover:opacity-50 transition-opacity">DROP11</a>
             <div class="flex gap-12 font-mono text-[9px] tracking-[0.4em] uppercase text-monolith-muted hidden md:flex">
                 <a href="#origin" class="hover:text-white transition-colors">The Origin</a>
-                <a href="#vessels" class="hover:text-white transition-colors">Vessels</a>
-                <a href="#transmissions" class="hover:text-white transition-colors">Transmissions</a>
+                <a href="#vessels" class="hover:text-white transition-colors">Roster</a>
+                <a href="#transmissions" class="hover:text-white transition-colors">Matches</a>
             </div>
         </div>
     </nav>
@@ -29,12 +31,12 @@ const players = [
         
         <div class="relative z-10 w-full max-w-5xl mt-auto pb-32">
             <h1 class="text-3xl md:text-5xl font-light tracking-[0.5em] uppercase text-center mb-6 reveal-line text-white/90">
-                O / Aethel _ Corpora
+                D R O P _ 1 1
             </h1>
             <p class="font-mono text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-center text-monolith-muted max-w-xl mx-auto leading-relaxed">
-                Navigating the unseen currents of the void.<br>
-                Exploring substrata of alien cognition.<br>
-                EST. N/A.
+                Elevating the game to unseen dimensions.<br>
+                Exploring substrata of athletic cognition.<br>
+                EST. 2026.
             </p>
         </div>
         
@@ -48,17 +50,17 @@ const players = [
             <div data-aos="fade-up">
                 <h2 class="text-xl font-light tracking-[0.4em] uppercase mb-12">The Manifest</h2>
                 <p class="font-mono text-[10px] tracking-[0.2em] leading-loose text-monolith-muted uppercase">
-                    Originating from an unknown coordinate, the Aethel entities materialized with a singular objective. Physics engines overwritten. Form is fluid. Purpose is absolute.
+                    Originating from a passion for the sport, Drop11 materialized with a singular objective. Physics engines overwritten. Form is fluid. Victory is absolute.
                 </p>
             </div>
             <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col justify-between border-l border-monolith-border pl-12">
                 <div>
-                    <div class="font-mono text-[8px] tracking-[0.4em] uppercase text-monolith-muted mb-2">Simulations</div>
-                    <div class="text-4xl font-light tracking-[0.2em]">9,999+</div>
+                    <div class="font-mono text-[8px] tracking-[0.4em] uppercase text-monolith-muted mb-2">Matches Played</div>
+                    <div class="text-4xl font-light tracking-[0.2em]">142</div>
                 </div>
                 <div>
-                    <div class="font-mono text-[8px] tracking-[0.4em] uppercase text-monolith-muted mb-2">Success Rate</div>
-                    <div class="text-4xl font-light tracking-[0.2em]">99.9%</div>
+                    <div class="font-mono text-[8px] tracking-[0.4em] uppercase text-monolith-muted mb-2">Win Rate</div>
+                    <div class="text-4xl font-light tracking-[0.2em]">89.9%</div>
                 </div>
             </div>
         </div>
@@ -67,12 +69,12 @@ const players = [
     <section id="vessels" class="py-40">
         <div class="max-w-4xl mx-auto px-6">
             <h2 data-aos="fade-right" class="text-[10px] font-mono tracking-[0.5em] uppercase text-monolith-muted border-b border-monolith-border pb-4 mb-24">
-                Biological Vessels (Roster)
+                The Drop11 Roster
             </h2>
             
             <div class="flex flex-col gap-12">
                 {players.map((p, index) => (
-                    <PlayerCard id={p.id} name={p.name} role={p.role} class_spec={p.class_spec} delay={index * 100} />
+                    <PlayerCard id={p.id} name={p.name} role={p.role} class_spec={p.class_spec} imgUrl={p.imgUrl} delay={index * 100} />
                 ))}
             </div>
         </div>
@@ -80,18 +82,18 @@ const players = [
 
     <footer id="transmissions" class="py-24 border-t border-monolith-border text-center bg-monolith-surface">
         <div class="max-w-xl mx-auto px-6">
-            <h2 data-aos="fade-up" class="text-2xl font-light tracking-[0.5em] uppercase mb-12">Transmission Log</h2>
+            <h2 data-aos="fade-up" class="text-2xl font-light tracking-[0.5em] uppercase mb-12">Upcoming Matches</h2>
             <div class="flex justify-between items-center border-b border-monolith-border py-4 font-mono text-[9px] tracking-[0.3em] uppercase hover:text-white transition-colors cursor-pointer">
-                <span class="text-monolith-muted">Cycle 45</span>
-                <span>VS Earth Defendents</span>
+                <span class="text-monolith-muted">Aug 15</span>
+                <span>VS Red Titans</span>
             </div>
             <div class="flex justify-between items-center border-b border-monolith-border py-4 font-mono text-[9px] tracking-[0.3em] uppercase hover:text-white transition-colors cursor-pointer">
-                <span class="text-monolith-muted">Cycle 48</span>
-                <span>VS Lunar Knights</span>
+                <span class="text-monolith-muted">Aug 22</span>
+                <span>VS Green Eagles</span>
             </div>
             
             <p class="font-mono text-[8px] tracking-[0.5em] uppercase text-monolith-muted mt-32">
-                END OF STREAM // 2026 // OBSIDIAN
+                END OF STREAM // 2026 // DROP11
             </p>
         </div>
     </footer>
