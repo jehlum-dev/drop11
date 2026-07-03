@@ -1,39 +1,32 @@
 ---
 ---
-<div class="relative w-56 h-56 md:w-80 md:h-80 mx-auto cursor-pointer group" onclick="cycleRealBall()">
-    <!-- Exact circle, absolutely no box shadow, no borders, no glow, nothing around it. -->
-    <div class="relative w-full h-full rounded-full overflow-hidden animate-levitate bg-transparent" style="box-shadow: none; border: none;">
-        <!-- Using scale-[1.15] to push any black photo edges completely outside the rounded wrapper -->
-        <img id="real-red" src="/red_ball.jpg" class="absolute inset-0 w-full h-full object-cover scale-[1.15] transition-opacity duration-700 opacity-100" alt="Red Ball" />
-        <img id="real-pink" src="/pink_ball.jpg" class="absolute inset-0 w-full h-full object-cover scale-[1.15] transition-opacity duration-700 opacity-0" alt="Pink Ball" />
-        <img id="real-white" src="/white_ball.jpg" class="absolute inset-0 w-full h-full object-cover scale-[1.15] transition-opacity duration-700 opacity-0" alt="White Ball" />
-    </div>
+<div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto cursor-pointer group" onclick="cycleBallFilter()">
+    <!-- Using a single image, scaled slightly, with a feathered radial mask to flawlessly remove the background naturally -->
+    <img id="magic-ball" src="/red_ball.jpg" 
+         class="w-full h-full object-cover transition-all duration-1000 ease-in-out animate-levitate scale-[1.1]" 
+         style="-webkit-mask-image: radial-gradient(circle, black 64%, transparent 65.5%); mask-image: radial-gradient(circle, black 64%, transparent 65.5%);" 
+         alt="Cricket Ball" />
+         
     <div class="mt-8 font-mono text-xs tracking-widest text-monolith-muted uppercase text-center opacity-70 group-hover:opacity-100 transition-opacity">
         Tap ball to cycle format (Red/Pink/White)
     </div>
 </div>
 
 <script is:inline>
-    let currentBall = 0; // 0=red, 1=pink, 2=white
-    function cycleRealBall() {
-        const red = document.getElementById('real-red');
-        const pink = document.getElementById('real-pink');
-        const white = document.getElementById('real-white');
+    let filterState = 0; // 0=red, 1=pink, 2=white
+    function cycleBallFilter() {
+        const ball = document.getElementById('magic-ball');
+        filterState = (filterState + 1) % 3;
         
-        currentBall = (currentBall + 1) % 3;
-        
-        if (currentBall === 0) {
-            red.style.opacity = '1';
-            pink.style.opacity = '0';
-            white.style.opacity = '0';
-        } else if (currentBall === 1) {
-            red.style.opacity = '0';
-            pink.style.opacity = '1';
-            white.style.opacity = '0';
+        if (filterState === 0) {
+            // True Red (Original)
+            ball.style.filter = 'none';
+        } else if (filterState === 1) {
+            // Pink: Rotate hue backwards from red to magenta, boost saturation
+            ball.style.filter = 'hue-rotate(-45deg) saturate(1.8) brightness(1.2)';
         } else {
-            red.style.opacity = '0';
-            pink.style.opacity = '0';
-            white.style.opacity = '1';
+            // White: Remove color, boost brightness and contrast to simulate white leather
+            ball.style.filter = 'grayscale(1) brightness(1.9) contrast(1.15)';
         }
     }
 </script>
