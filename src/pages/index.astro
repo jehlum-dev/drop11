@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PlayerCard from '../components/PlayerCard.astro';
 import InteractiveWicket from '../components/InteractiveWicket.astro';
-import SVGBall from '../components/SVGBall.astro';
+import RealBall from '../components/RealBall.astro';
 
 const players = [
     { id: 'BAT-01', name: 'Virat Singh', role: 'Top Order Batsman', jersey: '18', imgUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
@@ -30,9 +30,9 @@ const players = [
 
     <header class="min-h-screen flex flex-col items-center justify-center relative px-6 pt-24 pb-12 overflow-hidden">
         
-        <!-- The entirely CSS/SVG ball that animates colors smoothly -->
+        <!-- Highly realistic ball images completely isolated with no background -->
         <div class="mb-12 md:absolute md:inset-0 md:flex md:items-center md:justify-center pointer-events-auto z-10 md:mt-16 w-full max-w-sm mx-auto md:max-w-none">
-            <SVGBall />
+            <RealBall />
         </div>
         
         <div class="relative z-20 w-full max-w-5xl mt-auto pointer-events-none md:pb-12">

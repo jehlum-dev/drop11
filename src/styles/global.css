@@ -34,25 +34,6 @@ body {
     50% { transform: translateY(-20px) rotate(3deg); }
 }
 
-/* --- SVG Ball Colors & Transitions --- */
-.stop-light { stop-color: #ff4d4d; transition: stop-color 0.8s ease-in-out; }
-.stop-base { stop-color: #b30000; transition: stop-color 0.8s ease-in-out; }
-.stop-dark { stop-color: #330000; transition: stop-color 0.8s ease-in-out; }
-.stitch-path { stroke: #ffffff; transition: stroke 0.8s ease-in-out; }
-
-/* Pink state */
-.ball-container.theme-pink .stop-light { stop-color: #ff99e6; }
-.ball-container.theme-pink .stop-base { stop-color: #d1118a; }
-.ball-container.theme-pink .stop-dark { stop-color: #550033; }
-.ball-container.theme-pink .stitch-path { stroke: #111111; }
-
-/* White state */
-.ball-container.theme-white .stop-light { stop-color: #ffffff; }
-.ball-container.theme-white .stop-base { stop-color: #cccccc; }
-.ball-container.theme-white .stop-dark { stop-color: #444444; }
-.ball-container.theme-white .stitch-path { stroke: #006600; }
-
-
 /* --- Wicket Mobile & Hover Logic --- */
 .wicket-container:hover .wicket-bail-1,
 .wicket-container.is-broken .wicket-bail-1 {
