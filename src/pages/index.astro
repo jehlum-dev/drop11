@@ -3,19 +3,19 @@ import Layout from '../layouts/Layout.astro';
 import PlayerCard from '../components/PlayerCard.astro';
 
 const players = [
-    { id: 'BAT-01', name: 'Virat Singh', role: 'Top Order Batsman', jersey: '18', imgUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
-    { id: 'BAT-02', name: 'Rahul Patel', role: 'Opening Batsman', jersey: '45', imgUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
-    { id: 'BWL-01', name: 'David Trent', role: 'Pace Bowler', jersey: '33', imgUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
-    { id: 'WKT-01', name: 'MS Kumar', role: 'Wicket-Keeper', jersey: '07', imgUrl: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
-    { id: 'BWL-02', name: 'Sam Rashid', role: 'Spin Bowler', jersey: '19', imgUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
-    { id: 'ALL-01', name: 'Ben Stokes', role: 'All-Rounder', jersey: '55', imgUrl: 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
+    { id: 'BAT-01', name: 'Virat Singh', role: 'Top Order Batsman', jersey: '18', imgUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 'BAT-02', name: 'Rahul Patel', role: 'Opening Batsman', jersey: '45', imgUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 'BWL-01', name: 'David Trent', role: 'Pace Bowler', jersey: '33', imgUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 'WKT-01', name: 'MS Kumar', role: 'Wicket-Keeper', jersey: '07', imgUrl: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 'BWL-02', name: 'Sam Rashid', role: 'Spin Bowler', jersey: '19', imgUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 'ALL-01', name: 'Ben Stokes', role: 'All-Rounder', jersey: '55', imgUrl: 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
 ];
 ---
 <Layout title="DROP11 | CRICKET">
-    <nav class="fixed w-full z-50 p-8 mix-blend-difference">
-        <div class="flex justify-between items-center border-b border-monolith-border pb-4">
-            <a href="#" class="text-[10px] font-mono tracking-[0.5em] uppercase text-white hover:opacity-50 transition-opacity">DROP11</a>
-            <div class="flex gap-12 font-mono text-[9px] tracking-[0.4em] uppercase text-monolith-muted hidden md:flex">
+    <nav class="fixed w-full z-50 p-6 bg-monolith-bg/80 backdrop-blur-md">
+        <div class="flex justify-between items-center border-b border-monolith-border pb-4 max-w-7xl mx-auto">
+            <a href="#" class="text-xl md:text-2xl font-display font-bold tracking-[0.2em] uppercase text-white hover:opacity-50 transition-opacity">DROP11</a>
+            <div class="flex gap-8 font-mono text-sm tracking-[0.2em] uppercase text-monolith-text hidden md:flex">
                 <a href="#club" class="hover:text-white transition-colors">The Club</a>
                 <a href="#squad" class="hover:text-white transition-colors">First XI</a>
                 <a href="#fixtures" class="hover:text-white transition-colors">Fixtures</a>
@@ -23,80 +23,73 @@ const players = [
         </div>
     </nav>
 
-    <header class="min-h-screen flex flex-col items-center justify-center relative px-6">
+    <header class="min-h-[80vh] flex flex-col items-center justify-center relative px-6 mt-12">
         <!-- Floating Chrome Cricket Ball -->
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-            <img src="/chrome_ball.jpg" alt="Liquid Chrome Cricket Ball" class="w-full max-w-2xl opacity-80 mix-blend-screen animate-levitate" style="mask-image: radial-gradient(circle, black 50%, transparent 70%); -webkit-mask-image: radial-gradient(circle, black 50%, transparent 70%);">
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 mt-20">
+            <img src="/chrome_ball.jpg" alt="Liquid Chrome Cricket Ball" class="w-full max-w-3xl opacity-60 mix-blend-screen animate-levitate" style="mask-image: radial-gradient(circle, black 60%, transparent 80%); -webkit-mask-image: radial-gradient(circle, black 60%, transparent 80%);">
         </div>
         
-        <div class="relative z-10 w-full max-w-5xl mt-auto pb-32">
-            <h1 class="text-3xl md:text-5xl font-light tracking-[0.5em] uppercase text-center mb-6 reveal-line text-white/90">
-                D R O P _ 1 1
+        <div class="relative z-10 w-full max-w-5xl mt-auto pb-20">
+            <h1 class="text-6xl md:text-8xl font-bold tracking-[0.2em] uppercase text-center mb-8 text-white">
+                D R O P 1 1
             </h1>
-            <p class="font-mono text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-center text-monolith-muted max-w-xl mx-auto leading-relaxed">
+            <p class="font-mono text-lg md:text-xl tracking-[0.1em] uppercase text-center text-monolith-text max-w-2xl mx-auto leading-relaxed bg-monolith-bg/40 backdrop-blur-sm p-4 rounded border border-monolith-border">
                 Forged in the nets. Driven by absolute precision.<br>
-                Drop11 brings an entirely new dimension to the sport.<br>
-                EST. 2026.
+                Drop11 brings an entirely new dimension to the sport.
             </p>
-        </div>
-        
-        <div class="absolute bottom-12 right-12 font-mono text-[8px] tracking-[0.5em] uppercase text-monolith-muted rotate-90 origin-right">
-            SCROLL TO DESCEND
         </div>
     </header>
 
-    <section id="club" class="py-40 bg-monolith-surface border-y border-monolith-border">
-        <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-24">
+    <section id="club" class="py-24 bg-monolith-surface/90 backdrop-blur-md border-y border-monolith-border">
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
             <div data-aos="fade-up">
-                <h2 class="text-xl font-light tracking-[0.4em] uppercase mb-12">The Club</h2>
-                <p class="font-mono text-[10px] tracking-[0.2em] leading-loose text-monolith-muted uppercase">
+                <h2 class="text-4xl font-bold tracking-[0.1em] uppercase mb-8 text-white">The Club</h2>
+                <p class="font-mono text-lg tracking-wider leading-relaxed text-monolith-text">
                     We play a relentless, aggressive brand of cricket. With a foundation built on data analytics and raw athletic power, the Drop11 squad is designed for complete dominance on the pitch.
                 </p>
             </div>
-            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col justify-between border-l border-monolith-border pl-12">
+            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col gap-12 border-l-4 border-white pl-8">
                 <div>
-                    <div class="font-mono text-[8px] tracking-[0.4em] uppercase text-monolith-muted mb-2">Total Runs</div>
-                    <div class="text-4xl font-light tracking-[0.2em]">14,205</div>
+                    <div class="font-mono text-sm tracking-widest uppercase text-monolith-muted mb-2">Matches Played</div>
+                    <div class="text-6xl font-bold text-white tracking-widest">142</div>
                 </div>
                 <div>
-                    <div class="font-mono text-[8px] tracking-[0.4em] uppercase text-monolith-muted mb-2">Trophies Secured</div>
-                    <div class="text-4xl font-light tracking-[0.2em]">12</div>
+                    <div class="font-mono text-sm tracking-widest uppercase text-monolith-muted mb-2">Win Rate</div>
+                    <div class="text-6xl font-bold text-white tracking-widest">89.9%</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="squad" class="py-40">
+    <section id="squad" class="py-24 max-w-6xl mx-auto px-6">
+        <h2 data-aos="fade-right" class="text-3xl font-bold tracking-[0.2em] uppercase text-white border-b-2 border-white pb-6 mb-16">
+            The First XI
+        </h2>
+        
+        <div class="flex flex-col gap-8">
+            {players.map((p, index) => (
+                <PlayerCard id={p.id} name={p.name} role={p.role} jersey={p.jersey} imgUrl={p.imgUrl} delay={index * 50} />
+            ))}
+        </div>
+    </section>
+
+    <footer id="fixtures" class="py-20 border-t-2 border-white text-center bg-monolith-surface/90 backdrop-blur-md">
         <div class="max-w-4xl mx-auto px-6">
-            <h2 data-aos="fade-right" class="text-[10px] font-mono tracking-[0.5em] uppercase text-monolith-muted border-b border-monolith-border pb-4 mb-24">
-                The First XI
-            </h2>
-            
-            <div class="flex flex-col gap-12">
-                {players.map((p, index) => (
-                    <PlayerCard id={p.id} name={p.name} role={p.role} jersey={p.jersey} imgUrl={p.imgUrl} delay={index * 100} />
-                ))}
-            </div>
-        </div>
-    </section>
-
-    <footer id="fixtures" class="py-24 border-t border-monolith-border text-center bg-monolith-surface">
-        <div class="max-w-xl mx-auto px-6">
-            <h2 data-aos="fade-up" class="text-2xl font-light tracking-[0.5em] uppercase mb-12">Upcoming Fixtures</h2>
-            <div class="flex justify-between items-center border-b border-monolith-border py-4 font-mono text-[9px] tracking-[0.3em] uppercase hover:text-white transition-colors cursor-pointer">
+            <h2 data-aos="fade-up" class="text-4xl font-bold tracking-[0.2em] uppercase mb-12 text-white">Upcoming Fixtures</h2>
+            <div class="flex justify-between items-center border-b border-monolith-border py-6 font-mono text-lg tracking-[0.1em] uppercase hover:text-white transition-colors cursor-pointer bg-monolith-bg/50 px-6 rounded mb-4">
                 <span class="text-monolith-muted">Aug 15 @ 14:00</span>
-                <span>VS Red Titans</span>
+                <span class="font-bold text-white">VS Red Titans</span>
             </div>
-            <div class="flex justify-between items-center border-b border-monolith-border py-4 font-mono text-[9px] tracking-[0.3em] uppercase hover:text-white transition-colors cursor-pointer">
+            <div class="flex justify-between items-center border-b border-monolith-border py-6 font-mono text-lg tracking-[0.1em] uppercase hover:text-white transition-colors cursor-pointer bg-monolith-bg/50 px-6 rounded mb-4">
                 <span class="text-monolith-muted">Aug 22 @ 10:30</span>
-                <span>VS Green Eagles</span>
+                <span class="font-bold text-white">VS Green Eagles</span>
             </div>
-            <div class="flex justify-between items-center border-b border-monolith-border py-4 font-mono text-[9px] tracking-[0.3em] uppercase hover:text-white transition-colors cursor-pointer">
+            <div class="flex justify-between items-center border-b border-monolith-border py-6 font-mono text-lg tracking-[0.1em] uppercase hover:text-white transition-colors cursor-pointer bg-monolith-bg/50 px-6 rounded mb-4">
                 <span class="text-monolith-muted">Aug 29 @ 18:00</span>
-                <span>VS Silver Knights</span>
+                <span class="font-bold text-white">VS Silver Knights</span>
             </div>
             
-            <p class="font-mono text-[8px] tracking-[0.5em] uppercase text-monolith-muted mt-32">
+            <p class="font-mono text-sm tracking-widest uppercase text-monolith-muted mt-24">
                 &copy; 2026 // DROP11 CRICKET CLUB
             </p>
         </div>

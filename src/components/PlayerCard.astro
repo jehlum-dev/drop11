@@ -2,19 +2,19 @@
 const { id, name, role, jersey, imgUrl } = Astro.props;
 const delay = Astro.props.delay || 0;
 ---
-<div data-aos="fade-up" data-aos-delay={delay} class="group border-b border-monolith-border pb-8 hover:border-white transition-colors duration-500">
-    <div class="flex justify-between items-end mb-4">
-        <div class="font-mono text-[9px] tracking-[0.4em] text-monolith-muted uppercase">{id}</div>
-        <div class="font-mono text-[9px] tracking-[0.4em] text-monolith-muted uppercase">Jersey #{jersey}</div>
+<div data-aos="fade-up" data-aos-delay={delay} class="group bg-monolith-surface/50 p-6 rounded border border-monolith-border hover:border-white transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+    <div class="flex justify-between items-center mb-6 border-b border-monolith-border pb-4">
+        <div class="font-mono text-sm md:text-base tracking-widest text-monolith-muted uppercase">{id}</div>
+        <div class="font-mono text-sm md:text-base tracking-widest font-bold text-white uppercase">Jersey #{jersey}</div>
     </div>
     
-    <div class="grid grid-cols-2 gap-8 items-center">
-        <div class="overflow-hidden bg-monolith-surface h-[200px]">
-            <img src={imgUrl} alt={name} class="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+    <div class="grid md:grid-cols-3 gap-8 items-center">
+        <div class="overflow-hidden bg-monolith-surface h-[250px] md:h-[300px] rounded md:col-span-1">
+            <img src={imgUrl} alt={name} class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-out">
         </div>
-        <div>
-            <h3 class="text-3xl font-light tracking-[0.2em] uppercase mb-4 group-hover:pl-4 transition-all duration-500">{name}</h3>
-            <p class="font-mono text-[10px] tracking-[0.3em] uppercase text-monolith-muted">{role}</p>
+        <div class="md:col-span-2">
+            <h3 class="text-4xl md:text-6xl font-bold tracking-widest uppercase mb-4 text-white group-hover:translate-x-4 transition-transform duration-500">{name}</h3>
+            <p class="font-mono text-xl tracking-[0.2em] uppercase text-monolith-muted">{role}</p>
         </div>
     </div>
 </div>
