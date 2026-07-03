@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PlayerCard from '../components/PlayerCard.astro';
+import InteractiveWicket from '../components/InteractiveWicket.astro';
 
 const players = [
     { id: 'BAT-01', name: 'Virat Singh', role: 'Top Order Batsman', jersey: '18', imgUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
@@ -12,9 +13,12 @@ const players = [
 ];
 ---
 <Layout title="DROP11 | CRICKET">
-    <nav class="fixed w-full z-50 p-6 bg-monolith-bg/80 backdrop-blur-md">
-        <div class="flex justify-between items-center border-b border-monolith-border pb-4 max-w-7xl mx-auto">
-            <a href="#" class="text-xl md:text-2xl font-display font-bold tracking-[0.2em] uppercase text-white hover:opacity-50 transition-opacity">DROP11</a>
+    <nav class="fixed w-full z-50 p-6 bg-monolith-bg/90 backdrop-blur-md shadow-lg border-b border-monolith-border">
+        <div class="flex justify-between items-center max-w-7xl mx-auto">
+            <a href="#" class="text-xl md:text-3xl font-display font-black tracking-widest uppercase text-white hover:text-cricket-red transition-colors flex items-center gap-4">
+                <div class="w-8 h-8 bg-cricket-red rounded-full"></div>
+                DROP11
+            </a>
             <div class="flex gap-8 font-mono text-sm tracking-[0.2em] uppercase text-monolith-text hidden md:flex">
                 <a href="#club" class="hover:text-white transition-colors">The Club</a>
                 <a href="#squad" class="hover:text-white transition-colors">First XI</a>
@@ -23,75 +27,94 @@ const players = [
         </div>
     </nav>
 
-    <header class="min-h-[80vh] flex flex-col items-center justify-center relative px-6 mt-12">
-        <!-- Floating Chrome Cricket Ball -->
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 mt-20">
-            <img src="/chrome_ball.jpg" alt="Liquid Chrome Cricket Ball" class="w-full max-w-3xl opacity-60 mix-blend-screen animate-levitate" style="mask-image: radial-gradient(circle, black 60%, transparent 80%); -webkit-mask-image: radial-gradient(circle, black 60%, transparent 80%);">
+    <header class="min-h-screen flex flex-col items-center justify-center relative px-6 mt-12 overflow-hidden">
+        
+        <!-- Interactive Red Cricket Ball (Turns white on hover) -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-auto z-10 mt-20 group">
+            <img src="/red_ball.jpg" alt="Realistic Red Cricket Ball" 
+                 class="w-full max-w-lg md:max-w-2xl mix-blend-screen animate-levitate transition-all duration-[800ms] ease-in-out cursor-pointer hover:scale-110 hover:grayscale hover:brightness-[1.8] hover:drop-shadow-[0_0_60px_rgba(255,255,255,0.8)]" 
+                 style="mask-image: radial-gradient(circle, black 60%, transparent 75%); -webkit-mask-image: radial-gradient(circle, black 60%, transparent 75%);">
+            <div class="absolute mt-[400px] font-mono text-sm tracking-[0.5em] text-monolith-muted opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                WHITE-BALL PROTOCOL ENGAGED
+            </div>
         </div>
         
-        <div class="relative z-10 w-full max-w-5xl mt-auto pb-20">
-            <h1 class="text-6xl md:text-8xl font-bold tracking-[0.2em] uppercase text-center mb-8 text-white">
+        <div class="relative z-20 w-full max-w-5xl mt-auto pb-20 pointer-events-none">
+            <h1 class="text-7xl md:text-9xl font-black tracking-widest uppercase text-center mb-8 text-white drop-shadow-2xl">
                 D R O P 1 1
             </h1>
-            <p class="font-mono text-lg md:text-xl tracking-[0.1em] uppercase text-center text-monolith-text max-w-2xl mx-auto leading-relaxed bg-monolith-bg/40 backdrop-blur-sm p-4 rounded border border-monolith-border">
-                Forged in the nets. Driven by absolute precision.<br>
-                Drop11 brings an entirely new dimension to the sport.
+            <p class="font-mono text-lg md:text-2xl tracking-[0.1em] text-center text-white max-w-2xl mx-auto leading-relaxed bg-black/60 backdrop-blur-md p-6 rounded-lg border-2 border-monolith-border shadow-2xl">
+                Raw Power. <span class="text-cricket-red font-bold">Real Cricket.</span><br>
+                Welcome to the pitch.
             </p>
         </div>
     </header>
 
-    <section id="club" class="py-24 bg-monolith-surface/90 backdrop-blur-md border-y border-monolith-border">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-up">
-                <h2 class="text-4xl font-bold tracking-[0.1em] uppercase mb-8 text-white">The Club</h2>
-                <p class="font-mono text-lg tracking-wider leading-relaxed text-monolith-text">
-                    We play a relentless, aggressive brand of cricket. With a foundation built on data analytics and raw athletic power, the Drop11 squad is designed for complete dominance on the pitch.
+    <section id="club" class="py-32 bg-monolith-surface border-y-4 border-monolith-border">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-5xl font-black tracking-widest uppercase mb-8 text-white flex items-center gap-6">
+                    The Club
+                </h2>
+                <p class="font-mono text-xl tracking-wider leading-relaxed text-monolith-text mb-12">
+                    Forget the minimal abstract art. This is real cricket. Grass stains, shattered stumps, and screaming fastballs. We play to dominate.
                 </p>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="bg-monolith-bg p-6 rounded border-l-4 border-cricket-red">
+                        <div class="font-mono text-sm tracking-widest uppercase text-monolith-muted mb-2">Matches</div>
+                        <div class="text-5xl font-black text-white">142</div>
+                    </div>
+                    <div class="bg-monolith-bg p-6 rounded border-l-4 border-white">
+                        <div class="font-mono text-sm tracking-widest uppercase text-monolith-muted mb-2">Win Rate</div>
+                        <div class="text-5xl font-black text-white">89.9%</div>
+                    </div>
+                </div>
             </div>
-            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col gap-12 border-l-4 border-white pl-8">
-                <div>
-                    <div class="font-mono text-sm tracking-widest uppercase text-monolith-muted mb-2">Matches Played</div>
-                    <div class="text-6xl font-bold text-white tracking-widest">142</div>
-                </div>
-                <div>
-                    <div class="font-mono text-sm tracking-widest uppercase text-monolith-muted mb-2">Win Rate</div>
-                    <div class="text-6xl font-bold text-white tracking-widest">89.9%</div>
-                </div>
+            
+            <div data-aos="zoom-in" class="flex flex-col items-center justify-center p-12 bg-black/40 rounded-3xl border border-monolith-border shadow-2xl">
+                <h3 class="font-mono text-lg tracking-widest text-monolith-muted mb-16 uppercase text-center">Hover to shatter</h3>
+                <!-- Interactive breaking wicket -->
+                <InteractiveWicket />
             </div>
         </div>
     </section>
 
-    <section id="squad" class="py-24 max-w-6xl mx-auto px-6">
-        <h2 data-aos="fade-right" class="text-3xl font-bold tracking-[0.2em] uppercase text-white border-b-2 border-white pb-6 mb-16">
-            The First XI
-        </h2>
+    <section id="squad" class="py-32 max-w-7xl mx-auto px-6">
+        <div class="flex items-center gap-8 mb-20 border-b-4 border-white pb-6" data-aos="fade-right">
+            <h2 class="text-5xl font-black tracking-[0.2em] uppercase text-white">
+                The First XI
+            </h2>
+            <div class="font-mono text-sm tracking-widest uppercase text-monolith-muted bg-monolith-surface px-4 py-2 rounded">
+                Hover cards for 3D Pop
+            </div>
+        </div>
         
-        <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-12">
             {players.map((p, index) => (
-                <PlayerCard id={p.id} name={p.name} role={p.role} jersey={p.jersey} imgUrl={p.imgUrl} delay={index * 50} />
+                <PlayerCard id={p.id} name={p.name} role={p.role} jersey={p.jersey} imgUrl={p.imgUrl} delay={index * 100} />
             ))}
         </div>
     </section>
 
-    <footer id="fixtures" class="py-20 border-t-2 border-white text-center bg-monolith-surface/90 backdrop-blur-md">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 data-aos="fade-up" class="text-4xl font-bold tracking-[0.2em] uppercase mb-12 text-white">Upcoming Fixtures</h2>
-            <div class="flex justify-between items-center border-b border-monolith-border py-6 font-mono text-lg tracking-[0.1em] uppercase hover:text-white transition-colors cursor-pointer bg-monolith-bg/50 px-6 rounded mb-4">
-                <span class="text-monolith-muted">Aug 15 @ 14:00</span>
-                <span class="font-bold text-white">VS Red Titans</span>
-            </div>
-            <div class="flex justify-between items-center border-b border-monolith-border py-6 font-mono text-lg tracking-[0.1em] uppercase hover:text-white transition-colors cursor-pointer bg-monolith-bg/50 px-6 rounded mb-4">
-                <span class="text-monolith-muted">Aug 22 @ 10:30</span>
-                <span class="font-bold text-white">VS Green Eagles</span>
-            </div>
-            <div class="flex justify-between items-center border-b border-monolith-border py-6 font-mono text-lg tracking-[0.1em] uppercase hover:text-white transition-colors cursor-pointer bg-monolith-bg/50 px-6 rounded mb-4">
-                <span class="text-monolith-muted">Aug 29 @ 18:00</span>
-                <span class="font-bold text-white">VS Silver Knights</span>
+    <footer id="fixtures" class="py-32 border-t-8 border-cricket-red text-center bg-black">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 data-aos="fade-up" class="text-5xl font-black tracking-[0.2em] uppercase mb-16 text-white">Upcoming Fixtures</h2>
+            
+            <div class="space-y-6">
+                <div class="flex justify-between items-center bg-monolith-surface/80 hover:bg-monolith-surface transition-colors p-8 rounded-xl border-l-8 border-white cursor-pointer shadow-lg transform hover:scale-105 duration-300">
+                    <span class="font-mono text-xl text-monolith-muted tracking-widest">Aug 15 @ 14:00</span>
+                    <span class="text-2xl font-black text-white uppercase tracking-widest">VS Red Titans</span>
+                </div>
+                <div class="flex justify-between items-center bg-monolith-surface/80 hover:bg-monolith-surface transition-colors p-8 rounded-xl border-l-8 border-white cursor-pointer shadow-lg transform hover:scale-105 duration-300">
+                    <span class="font-mono text-xl text-monolith-muted tracking-widest">Aug 22 @ 10:30</span>
+                    <span class="text-2xl font-black text-white uppercase tracking-widest">VS Green Eagles</span>
+                </div>
             </div>
             
-            <p class="font-mono text-sm tracking-widest uppercase text-monolith-muted mt-24">
+            <div class="mt-32 font-mono text-lg tracking-widest uppercase text-monolith-muted flex items-center justify-center gap-4">
+                <div class="w-4 h-4 bg-cricket-red rounded-full"></div>
                 &copy; 2026 // DROP11 CRICKET CLUB
-            </p>
+            </div>
         </div>
     </footer>
 </Layout>

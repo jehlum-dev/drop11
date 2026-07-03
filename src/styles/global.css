@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-monolith-bg: #000000;
-  --color-monolith-surface: #0a0a0a;
-  --color-monolith-border: #1a1a1a;
+  --color-monolith-bg: #051f0f;
+  --color-monolith-surface: #0a2f17;
+  --color-monolith-border: #1a4f27;
   --color-monolith-text: #e0e0e0;
-  --color-monolith-muted: #555555;
+  --color-monolith-muted: #88b093;
+  --color-cricket-red: #a30000;
   --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
 }
@@ -16,54 +17,38 @@ html {
 }
 
 body {
-    cursor: none;
+    cursor: auto; /* Revert to normal cursor since we want clear hover targets */
     color: var(--color-monolith-text);
 }
 
-/* Monolith Custom Cursor */
-.cursor-crosshair-v, .cursor-crosshair-h {
-    position: fixed;
-    background-color: rgba(255, 255, 255, 0.5);
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
-    transition: opacity 0.3s;
+.preserve-3d {
+    transform-style: preserve-3d;
 }
 
-.cursor-crosshair-v {
-    width: 1px;
-    height: 100vh;
-    top: 0;
-    left: 50%;
+.rotate-x-\[5deg\] {
+    transform: rotateX(5deg);
+}
+.rotate-y-\[5deg\] {
+    transform: rotateY(5deg);
+}
+.translate-z-\[20px\] {
+    transform: translateZ(20px);
+}
+.translate-z-\[40px\] {
+    transform: translateZ(40px);
+}
+.translate-z-\[60px\] {
+    transform: translateZ(60px);
 }
 
-.cursor-crosshair-h {
-    width: 100vw;
-    height: 1px;
-    top: 50%;
-    left: 0;
-}
-
-.cursor-dot {
-    position: fixed;
-    width: 4px;
-    height: 4px;
-    background: white;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
-}
-
-/* Slow levitation for the monolith */
+/* Slow levitation for the ball */
 .animate-levitate {
-    animation: levitate 10s ease-in-out infinite;
+    animation: levitate 8s ease-in-out infinite;
 }
 
 @keyframes levitate {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(5deg); }
 }
 
 /* Subtle reveal on scroll */
@@ -87,13 +72,4 @@ body {
 @keyframes slideRight {
     0% { transform: scaleX(1); }
     100% { transform: scaleX(0); }
-}
-
-@media (max-width: 768px) {
-    body {
-        cursor: auto;
-    }
-    .cursor-crosshair-v, .cursor-crosshair-h, .cursor-dot {
-        display: none;
-    }
 }
