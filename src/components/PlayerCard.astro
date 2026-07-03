@@ -2,24 +2,24 @@
 const { id, name, role, jersey, imgUrl } = Astro.props;
 const delay = Astro.props.delay || 0;
 ---
-<div data-aos="fade-up" data-aos-delay={delay} style="perspective: 1200px;" class="mb-8">
-    <div class="group bg-monolith-surface/80 p-8 rounded-xl border-2 border-monolith-border hover:border-white transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.6)] transform hover:scale-105 hover:rotate-x-[5deg] hover:rotate-y-[-5deg] preserve-3d cursor-pointer">
+<div data-aos="fade-up" data-aos-delay={delay} style="perspective: 1200px;" class="player-card-container mb-8" onclick="this.classList.toggle('is-popped')">
+    <div class="player-card bg-monolith-surface/80 p-8 rounded-xl border-2 border-monolith-border transition-all duration-500 preserve-3d cursor-pointer">
         
-        <div class="flex justify-between items-center mb-6 border-b-2 border-monolith-border pb-4 transform translate-z-[20px] transition-transform duration-500 group-hover:translate-z-[30px]">
+        <div class="player-card-header flex justify-between items-center mb-6 border-b-2 border-monolith-border pb-4 transform translate-z-[20px] transition-transform duration-500">
             <div class="font-mono text-lg tracking-widest text-monolith-muted uppercase">{id}</div>
             <div class="font-mono text-xl tracking-widest font-black text-white uppercase bg-cricket-red px-6 py-2 rounded shadow-[0_5px_15px_rgba(163,0,0,0.5)]">#{jersey}</div>
         </div>
         
-        <div class="grid md:grid-cols-3 gap-12 items-center transform translate-z-[40px] transition-transform duration-500 group-hover:translate-z-[60px]">
-            <div class="overflow-hidden bg-monolith-bg h-[300px] md:h-[350px] rounded-lg md:col-span-1 shadow-2xl relative border-4 border-transparent group-hover:border-white transition-colors duration-500">
-                <img src={imgUrl} alt={name} class="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-out">
+        <div class="player-card-body grid md:grid-cols-3 gap-12 items-center transform translate-z-[40px] transition-transform duration-500">
+            <div class="player-card-img-container overflow-hidden bg-monolith-bg h-[300px] md:h-[350px] rounded-lg md:col-span-1 shadow-2xl relative border-4 border-transparent transition-colors duration-500">
+                <img src={imgUrl} alt={name} class="player-card-img w-full h-full object-cover grayscale opacity-70 transition-all duration-700 ease-out">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
             </div>
             
-            <div class="md:col-span-2 transform translate-z-[60px] transition-transform duration-500 group-hover:translate-z-[90px]">
+            <div class="player-card-text md:col-span-2 transform translate-z-[60px] transition-transform duration-500">
                 <h3 class="text-5xl md:text-7xl font-bold tracking-widest uppercase mb-4 text-white drop-shadow-[0_5px_10px_rgba(0,0,0,0.8)]">{name}</h3>
                 <p class="font-mono text-2xl tracking-[0.3em] uppercase text-monolith-muted font-bold drop-shadow-md">{role}</p>
-                <div class="mt-8 w-16 h-2 bg-cricket-red rounded group-hover:w-32 transition-all duration-500"></div>
+                <div class="player-card-line mt-8 w-16 h-2 bg-cricket-red rounded transition-all duration-500"></div>
             </div>
         </div>
         
