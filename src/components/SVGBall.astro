@@ -1,0 +1,52 @@
+---
+---
+<div class="ball-container w-full max-w-[250px] md:max-w-[350px] mx-auto cursor-pointer group relative z-10" onclick="cycleBallTheme()">
+    <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.9)] animate-levitate transition-transform duration-500 group-hover:scale-110">
+        <defs>
+            <radialGradient id="ballGrad" cx="40%" cy="30%" r="60%">
+                <stop offset="0%" class="stop-light" />
+                <stop offset="50%" class="stop-base" />
+                <stop offset="100%" class="stop-dark" />
+            </radialGradient>
+            <!-- Creates a subtle leather bump texture -->
+            <filter id="leather">
+                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise" />
+                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0" in="noise" result="coloredNoise" />
+                <feBlend in="SourceGraphic" in2="coloredNoise" mode="multiply" />
+            </filter>
+        </defs>
+        
+        <!-- Main Sphere -->
+        <circle cx="100" cy="100" r="95" fill="url(#ballGrad)" filter="url(#leather)" />
+        
+        <!-- Central Seam Highlight/Shadow for depth -->
+        <g transform="rotate(12 100 100)">
+            <path d="M 94 6 Q 100 0 106 6 L 106 194 Q 100 200 94 194 Z" fill="rgba(0,0,0,0.3)" />
+            <path d="M 96 4 Q 100 0 104 4 L 104 196 Q 100 200 96 196 Z" fill="rgba(255,255,255,0.15)" />
+            
+            <!-- Stitches -->
+            <path class="stitch-path" d="M 88 12 Q 98 100 88 188" fill="none" stroke-width="2" stroke-dasharray="4 4" />
+            <path class="stitch-path" d="M 94 8 Q 100 100 94 192" fill="none" stroke-width="2.5" stroke-dasharray="5 3" />
+            <path class="stitch-path" d="M 100 5 L 100 195" fill="none" stroke-width="3" stroke-dasharray="6 4" />
+            <path class="stitch-path" d="M 106 8 Q 100 100 106 192" fill="none" stroke-width="2.5" stroke-dasharray="5 3" />
+            <path class="stitch-path" d="M 112 12 Q 102 100 112 188" fill="none" stroke-width="2" stroke-dasharray="4 4" />
+        </g>
+    </svg>
+    <div class="mt-12 font-mono text-xs tracking-widest text-monolith-muted uppercase text-center opacity-70 group-hover:opacity-100 transition-opacity">
+        Tap ball to cycle format (Test / Day-Night / ODI)
+    </div>
+</div>
+
+<script is:inline>
+    function cycleBallTheme() {
+        const container = document.querySelector('.ball-container');
+        if (!container.classList.contains('theme-pink') && !container.classList.contains('theme-white')) {
+            container.classList.add('theme-pink');
+        } else if (container.classList.contains('theme-pink')) {
+            container.classList.remove('theme-pink');
+            container.classList.add('theme-white');
+        } else {
+            container.classList.remove('theme-white');
+        }
+    }
+</script>
