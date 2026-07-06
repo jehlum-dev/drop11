@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import PlayerCard from '../components/PlayerCard.astro';
 import InteractiveWicket from '../components/InteractiveWicket.astro';
-import RealBall from '../components/RealBall.astro';
 
 const players = [
     { id: 'BAT-01', name: 'Virat Singh', role: 'Top Batsman', jersey: '18', imgUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
@@ -39,13 +38,16 @@ const players = [
             </div>
         </div>
         
-        <!-- Interactive Ball Side -->
+        <!-- Interactive Image Side -->
         <div class="p-12 md:p-24 flex items-center justify-center relative min-h-[500px]">
             <!-- Grid coordinate decorations -->
-            <div class="absolute top-4 left-4 font-mono text-sm font-bold bg-brutal-white border-2 border-brutal-black px-2">[GRID: 01A]</div>
-            <div class="absolute bottom-4 right-4 font-mono text-sm font-bold bg-brutal-white border-2 border-brutal-black px-2">[COORDS: 51.50]</div>
+            <div class="absolute top-4 left-4 font-mono text-sm font-bold bg-brutal-white border-2 border-brutal-black px-2 z-20">[GRID: 01A]</div>
+            <div class="absolute bottom-4 right-4 font-mono text-sm font-bold bg-brutal-white border-2 border-brutal-black px-2 z-20">[COORDS: 51.50]</div>
             
-            <RealBall />
+            <!-- User's Custom Image -->
+            <div class="border-heavy shadow-brutal bg-brutal-white w-full max-w-md animate-levitate hover:scale-105 transition-transform duration-300">
+                <img src="/custom_image.png" alt="Custom Graphic" class="w-full h-auto object-cover" />
+            </div>
         </div>
     </header>
 
