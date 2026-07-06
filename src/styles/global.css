@@ -1,63 +1,36 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brutal-bg: #f4f4f0;
-  --color-brutal-black: #050505;
-  --color-brutal-white: #ffffff;
-  --color-brutal-yellow: #ccff00;
-  
-  /* Fallback to system impact-like fonts */
-  --font-display: "Arial Black", Impact, "Helvetica Neue", Helvetica, sans-serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
+  --color-editorial-bg: #ffffff;
+  --color-editorial-surface: #f9f9f9;
+  --color-editorial-border: #eaeaea;
+  --color-editorial-text: #111111;
+  --color-editorial-muted: #888888;
+  --color-editorial-accent: #000000;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Playfair Display", "Georgia", serif;
 }
 
-html {
-    background-color: var(--color-brutal-bg);
+html, body {
+  background-color: var(--color-editorial-bg);
+  color: var(--color-editorial-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  line-height: 1.6;
 }
 
-body {
-    color: var(--color-brutal-black);
-    /* Architectural grid background */
-    background-image: 
-        linear-gradient(to right, #d0d0d0 1px, transparent 1px),
-        linear-gradient(to bottom, #d0d0d0 1px, transparent 1px);
-    background-size: 40px 40px;
-    background-position: center top;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 
-/* Brutalist Shadows */
-.shadow-brutal {
-    box-shadow: 8px 8px 0px 0px var(--color-brutal-black);
-    transition: transform 0.1s, box-shadow 0.1s;
+/* Performant subtle utilities */
+.fade-up {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.shadow-brutal:hover, .shadow-brutal:active {
-    transform: translate(4px, 4px);
-    box-shadow: 4px 4px 0px 0px var(--color-brutal-black);
-}
-
-.shadow-brutal-yellow {
-    box-shadow: 12px 12px 0px 0px var(--color-brutal-yellow);
-}
-
-/* Heavy Borders */
-.border-heavy {
-    border: 4px solid var(--color-brutal-black);
-}
-
-/* --- Wicket Brutalist Logic --- */
-/* Fast, rigid transitions */
-.wicket-container.is-broken .wicket-bail-1 {
-    transform: translateY(-40px) translateX(-40px) rotate(-45deg);
-}
-.wicket-container.is-broken .wicket-bail-2 {
-    transform: translateY(-60px) translateX(40px) rotate(60deg);
-}
-.wicket-container.is-broken .wicket-stump-1 {
-    transform: rotate(-15deg) translateX(-20px);
-}
-.wicket-container.is-broken .wicket-stump-2 {
-    transform: rotate(5deg) translateY(10px);
-}
-.wicket-container.is-broken .wicket-stump-3 {
-    transform: rotate(25deg) translateX(30px);
+.fade-up:hover {
+  transform: translateY(-4px);
 }
