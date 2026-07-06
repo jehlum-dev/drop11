@@ -5,111 +5,92 @@ import InteractiveWicket from '../components/InteractiveWicket.astro';
 import RealBall from '../components/RealBall.astro';
 
 const players = [
-    { id: 'BAT-01', name: 'Virat Singh', role: 'Top Order Batsman', jersey: '18', imgUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 'BAT-02', name: 'Rahul Patel', role: 'Opening Batsman', jersey: '45', imgUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 'BAT-01', name: 'Virat Singh', role: 'Top Batsman', jersey: '18', imgUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 'BAT-02', name: 'Rahul Patel', role: 'Opening Bat', jersey: '45', imgUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
     { id: 'BWL-01', name: 'David Trent', role: 'Pace Bowler', jersey: '33', imgUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
-    { id: 'WKT-01', name: 'MS Kumar', role: 'Wicket-Keeper', jersey: '07', imgUrl: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
+    { id: 'WKT-01', name: 'MS Kumar', role: 'Wicket-Keep', jersey: '07', imgUrl: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
     { id: 'BWL-02', name: 'Sam Rashid', role: 'Spin Bowler', jersey: '19', imgUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
     { id: 'ALL-01', name: 'Ben Stokes', role: 'All-Rounder', jersey: '55', imgUrl: 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' },
 ];
 ---
-<Layout title="DROP11 | CRICKET">
-    <nav class="fixed w-full z-50 p-4 md:p-6 bg-monolith-bg/90 backdrop-blur-md shadow-lg border-b border-monolith-border">
-        <div class="flex justify-between items-center max-w-7xl mx-auto">
-            <a href="#" class="text-xl md:text-3xl font-display font-black tracking-widest uppercase text-white hover:text-cricket-red transition-colors flex items-center gap-4">
-                <div class="w-6 h-6 md:w-8 md:h-8 bg-cricket-red rounded-full"></div>
-                DROP11
-            </a>
-            <div class="flex gap-4 md:gap-8 font-mono text-xs md:text-sm tracking-[0.1em] md:tracking-[0.2em] uppercase text-monolith-text">
-                <a href="#club" class="hover:text-white transition-colors">Club</a>
-                <a href="#squad" class="hover:text-white transition-colors">XI</a>
-                <a href="#fixtures" class="hover:text-white transition-colors">Fixtures</a>
-            </div>
+<Layout title="URCC | CRICKET">
+    <!-- Navbar -->
+    <nav class="border-b-4 border-brutal-black bg-brutal-yellow flex flex-col md:flex-row justify-between items-center p-4">
+        <div class="text-4xl md:text-5xl tracking-tighter">DROP11 CRICKET CLUB</div>
+        <div class="font-mono text-sm tracking-widest flex gap-8 mt-4 md:mt-0 font-bold">
+            <a href="#roster" class="hover:bg-brutal-black hover:text-brutal-yellow px-3 py-2 border-4 border-transparent hover:border-brutal-black transition-colors">ROSTER</a>
+            <a href="#fixtures" class="hover:bg-brutal-black hover:text-brutal-yellow px-3 py-2 border-4 border-transparent hover:border-brutal-black transition-colors">FIXTURES</a>
         </div>
     </nav>
 
-    <header class="min-h-screen flex flex-col items-center justify-center relative px-6 pt-24 pb-12 overflow-hidden">
-        
-        <!-- Highly realistic ball images completely isolated with no background -->
-        <div class="mb-12 md:absolute md:inset-0 md:flex md:items-center md:justify-center pointer-events-auto z-10 md:mt-16 w-full max-w-sm mx-auto md:max-w-none">
-            <RealBall />
+    <!-- Hero Section -->
+    <header class="border-b-4 border-brutal-black grid grid-cols-1 lg:grid-cols-2">
+        <!-- Text Side -->
+        <div class="p-8 md:p-16 border-b-4 lg:border-b-0 lg:border-r-4 border-brutal-black flex flex-col justify-center relative overflow-hidden">
+            <div class="absolute -top-10 -left-10 text-[20rem] text-black/5 select-none z-0">11</div>
+            
+            <h1 class="text-7xl md:text-[8rem] xl:text-[10rem] leading-[0.8] tracking-tighter mb-8 relative z-10">
+                RAW.<br>BRUTAL.<br>CRICKET.
+            </h1>
+            <div class="bg-brutal-black text-brutal-white p-6 md:p-8 shadow-brutal-yellow border-heavy max-w-lg relative z-10">
+                <p class="font-mono text-base md:text-xl lowercase tracking-normal">
+                    [sys_log]: ignoring tradition. ignoring elegance. we play to completely dismantle the opposition.
+                </p>
+            </div>
         </div>
         
-        <div class="relative z-20 w-full max-w-5xl mt-auto pointer-events-none md:pb-12">
-            <h1 class="text-6xl md:text-9xl font-black tracking-widest uppercase text-center mb-6 text-white drop-shadow-2xl leading-none">
-                DROP11
-            </h1>
-            <p class="font-mono text-base md:text-2xl tracking-[0.1em] text-center text-white max-w-2xl mx-auto leading-relaxed bg-black/60 backdrop-blur-md p-4 md:p-6 rounded-lg border-2 border-monolith-border shadow-2xl">
-                Raw Power. <span class="text-cricket-red font-bold">Real Cricket.</span><br>
-                Welcome to the pitch.
-            </p>
+        <!-- Interactive Ball Side -->
+        <div class="p-12 md:p-24 flex items-center justify-center relative min-h-[500px]">
+            <!-- Grid coordinate decorations -->
+            <div class="absolute top-4 left-4 font-mono text-sm font-bold bg-brutal-white border-2 border-brutal-black px-2">[GRID: 01A]</div>
+            <div class="absolute bottom-4 right-4 font-mono text-sm font-bold bg-brutal-white border-2 border-brutal-black px-2">[COORDS: 51.50]</div>
+            
+            <RealBall />
         </div>
     </header>
 
-    <section id="club" class="py-24 md:py-32 bg-monolith-surface border-y-4 border-monolith-border">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 md:gap-20 items-center">
-            <div data-aos="fade-right">
-                <h2 class="text-4xl md:text-5xl font-black tracking-widest uppercase mb-8 text-white flex items-center gap-6">
-                    The Club
-                </h2>
-                <p class="font-mono text-lg md:text-xl tracking-wider leading-relaxed text-monolith-text mb-12">
-                    Forget the minimal abstract art. This is real cricket. Grass stains, shattered stumps, and screaming fastballs. We play to dominate.
-                </p>
-                <div class="grid grid-cols-2 gap-4 md:gap-8">
-                    <div class="bg-monolith-bg p-4 md:p-6 rounded border-l-4 border-cricket-red">
-                        <div class="font-mono text-xs md:text-sm tracking-widest uppercase text-monolith-muted mb-2">Matches</div>
-                        <div class="text-3xl md:text-5xl font-black text-white">142</div>
-                    </div>
-                    <div class="bg-monolith-bg p-4 md:p-6 rounded border-l-4 border-white">
-                        <div class="font-mono text-xs md:text-sm tracking-widest uppercase text-monolith-muted mb-2">Win Rate</div>
-                        <div class="text-3xl md:text-5xl font-black text-white">89.9%</div>
-                    </div>
-                </div>
+    <!-- Data / Wicket Section -->
+    <section class="border-b-4 border-brutal-black grid grid-cols-1 lg:grid-cols-3">
+        <div class="col-span-1 border-b-4 lg:border-b-0 lg:border-r-4 border-brutal-black p-8 md:p-12 bg-brutal-yellow">
+            <h2 class="text-6xl md:text-7xl tracking-tighter mb-8">CLUB DATA</h2>
+            <ul class="font-mono space-y-4 text-xl md:text-2xl border-t-4 border-brutal-black pt-6 font-bold">
+                <li class="flex justify-between border-b-4 border-brutal-black pb-4"><span>MATCHES</span> <span>142</span></li>
+                <li class="flex justify-between border-b-4 border-brutal-black pb-4"><span>WIN RATE</span> <span>89.9%</span></li>
+                <li class="flex justify-between border-b-4 border-brutal-black pb-4"><span>STATUS</span> <span>HOSTILE</span></li>
+            </ul>
+        </div>
+        
+        <div class="col-span-1 lg:col-span-2 p-12 md:p-24 flex flex-col justify-center items-center relative overflow-hidden bg-white">
+            <div class="absolute top-4 left-4 font-mono text-sm font-bold bg-brutal-black text-white px-3 py-1 shadow-brutal-yellow z-20">TAP TO DESTROY</div>
+            <!-- Huge background text -->
+            <div class="absolute inset-0 flex items-center justify-center text-[10rem] md:text-[15rem] font-black text-black/5 select-none pointer-events-none tracking-tighter whitespace-nowrap overflow-hidden">
+                WICKET
             </div>
-            
-            <div data-aos="zoom-in" class="flex flex-col items-center justify-center p-8 md:p-12 bg-black/40 rounded-3xl border border-monolith-border shadow-2xl">
-                <h3 class="font-mono text-sm md:text-lg tracking-widest text-monolith-muted mb-12 uppercase text-center">Auto-Shatters on Scroll</h3>
-                <InteractiveWicket />
-            </div>
+            <InteractiveWicket />
         </div>
     </section>
 
-    <section id="squad" class="py-24 md:py-32 max-w-7xl mx-auto px-6">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-16 border-b-4 border-white pb-6" data-aos="fade-right">
-            <h2 class="text-4xl md:text-5xl font-black tracking-[0.2em] uppercase text-white">
-                The First XI
-            </h2>
-            <div class="font-mono text-xs md:text-sm tracking-widest uppercase text-monolith-muted bg-monolith-surface px-4 py-2 rounded">
-                Scroll past to 3D Pop
-            </div>
-        </div>
-        
-        <div class="flex flex-col gap-8 md:gap-12">
+    <!-- Roster -->
+    <section id="roster" class="p-8 md:p-16 border-b-4 border-brutal-black">
+        <h2 class="text-[5rem] md:text-[8rem] lg:text-[10rem] tracking-tighter leading-[0.8] mb-12 border-b-8 border-brutal-black pb-6 uppercase">
+            THE SQUAD
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {players.map((p, index) => (
-                <PlayerCard id={p.id} name={p.name} role={p.role} jersey={p.jersey} imgUrl={p.imgUrl} delay={index * 100} />
+                <PlayerCard id={p.id} name={p.name} role={p.role} jersey={p.jersey} imgUrl={p.imgUrl} index={index + 1} />
             ))}
         </div>
     </section>
 
-    <footer id="fixtures" class="py-24 md:py-32 border-t-8 border-cricket-red text-center bg-black">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 data-aos="fade-up" class="text-3xl md:text-5xl font-black tracking-[0.2em] uppercase mb-12 md:mb-16 text-white">Upcoming Fixtures</h2>
-            
-            <div class="space-y-4 md:space-y-6">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-monolith-surface/80 hover:bg-monolith-surface transition-colors p-6 md:p-8 rounded-xl border-l-8 border-white cursor-pointer shadow-lg transform hover:scale-105 duration-300">
-                    <span class="font-mono text-base md:text-xl text-monolith-muted tracking-widest">Aug 15 @ 14:00</span>
-                    <span class="text-xl md:text-2xl font-black text-white uppercase tracking-widest">VS Red Titans</span>
-                </div>
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-monolith-surface/80 hover:bg-monolith-surface transition-colors p-6 md:p-8 rounded-xl border-l-8 border-white cursor-pointer shadow-lg transform hover:scale-105 duration-300">
-                    <span class="font-mono text-base md:text-xl text-monolith-muted tracking-widest">Aug 22 @ 10:30</span>
-                    <span class="text-xl md:text-2xl font-black text-white uppercase tracking-widest">VS Green Eagles</span>
-                </div>
-            </div>
-            
-            <div class="mt-24 md:mt-32 font-mono text-sm md:text-lg tracking-widest uppercase text-monolith-muted flex items-center justify-center gap-4">
-                <div class="w-3 h-3 md:w-4 md:h-4 bg-cricket-red rounded-full"></div>
-                &copy; 2026 // DROP11
-            </div>
+    <footer id="fixtures" class="bg-brutal-black text-brutal-yellow p-12 md:p-24 flex flex-col items-center border-t-8 border-brutal-yellow">
+        <h1 class="text-8xl md:text-[12rem] tracking-tighter mb-8 leading-none">DROP11</h1>
+        <div class="w-full max-w-4xl border-4 border-brutal-yellow p-8 mb-12">
+            <h3 class="text-5xl tracking-tighter mb-8 text-white">FIXTURES</h3>
+            <ul class="font-mono text-xl space-y-4">
+                <li class="flex justify-between border-b-2 border-brutal-yellow pb-2 hover:bg-brutal-yellow hover:text-brutal-black cursor-pointer px-2 transition-colors"><span>AUG 15</span> <span>RED TITANS</span></li>
+                <li class="flex justify-between border-b-2 border-brutal-yellow pb-2 hover:bg-brutal-yellow hover:text-brutal-black cursor-pointer px-2 transition-colors"><span>AUG 22</span> <span>GREEN EAGLES</span></li>
+            </ul>
         </div>
+        <div class="font-mono text-sm md:text-base uppercase text-white">End of document // [SYS.OK] // 2026</div>
     </footer>
 </Layout>

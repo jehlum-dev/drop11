@@ -3,54 +3,19 @@ import '../styles/global.css';
 const { title } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body class="bg-monolith-bg font-display overflow-x-hidden selection:bg-white selection:text-black text-lg">
+<body class="font-display font-black overflow-x-hidden selection:bg-brutal-yellow selection:text-brutal-black uppercase leading-none">
     
-    <div class="relative z-10">
+    <!-- Main Architectural Container -->
+    <div class="relative z-10 max-w-[1400px] mx-auto border-x-4 border-brutal-black min-h-screen bg-brutal-white shadow-[20px_0_0_0_#050505,-20px_0_0_0_#050505] md:my-10 border-y-4">
         <slot />
     </div>
 
-    <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script is:inline>
-        // Initialize AOS animations
-        AOS.init({ once: true, offset: 50, duration: 1000, easing: 'ease-out-cubic' });
-        
-        // Massive Mobile Upgrade: Auto-trigger 3D pops when scrolling into view
-        // This ensures mobile users get the crazy 3D experience without needing to tap
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    // When the element crosses 50% visibility in the viewport
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-popped');
-                        if(entry.target.classList.contains('wicket-container')) {
-                            entry.target.classList.add('is-broken');
-                        }
-                    } else {
-                        // Reset when it leaves view so they can experience it again
-                        entry.target.classList.remove('is-popped');
-                        if(entry.target.classList.contains('wicket-container')) {
-                            entry.target.classList.remove('is-broken');
-                        }
-                    }
-                });
-            }, { 
-                threshold: 0.6,
-                rootMargin: "-10% 0px -10% 0px" // Trigger slightly towards the center
-            });
-
-            // Observe all interactive components
-            document.querySelectorAll('.player-card-container, .wicket-container').forEach(el => {
-                observer.observe(el);
-            });
-        });
-    </script>
 </body>
 </html>
