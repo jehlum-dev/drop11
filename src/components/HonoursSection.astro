@@ -14,8 +14,8 @@ import awards from '../data/awards.json';
             {awards.map((a) => (
                 <div class="group cursor-pointer">
                     <!-- Image with extremely smooth parallax/scale hover -->
-                    <div class="aspect-[4/5] md:aspect-square overflow-hidden mb-8 bg-[#EFEFEF]">
-                        <img src={a.imgUrl} alt={a.title} class="w-full h-full object-cover filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-1000 ease-apple" />
+                    <div class="aspect-[4/5] md:aspect-square overflow-hidden mb-8 bg-black/50 rounded-xl border border-white/5">
+                        <img src={a.imgUrl} alt={a.title} class="w-full h-full object-cover filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-1000 ease-apple" />
                     </div>
                     <!-- Details -->
                     <div class="flex flex-col items-center text-center">

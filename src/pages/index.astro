@@ -7,20 +7,18 @@ import HonoursSection from '../components/HonoursSection.astro';
 import RealBall from '../components/RealBall.astro';
 import Navbar from '../components/Navbar.astro';
 ---
-<Layout title="Drop 11 | Perfect Edition">
+<Layout title="Drop 11 | Deep Space Edition">
     
-    <!-- Elegant Scroll Progress Sides -->
-    <div class="fixed top-0 left-0 w-1 h-full bg-black/5 z-[100] pointer-events-none">
-        <div id="scroll-progress-left" class="w-full bg-brand-accent transition-all duration-100 ease-out" style="height: 0%;"></div>
-    </div>
-    <div class="fixed top-0 right-0 w-1 h-full bg-black/5 z-[100] pointer-events-none flex flex-col justify-end">
-        <div id="scroll-progress-right" class="w-full bg-brand-accent transition-all duration-100 ease-out" style="height: 0%;"></div>
-    </div>
+    <!-- Dynamic Deep Space Canvas -->
+    <canvas id="deep-space-canvas" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none"></canvas>
     
+    <!-- Central Content Wrapper (Translucent so space shows through) -->
+    <div class="max-w-[1200px] mx-auto min-h-screen relative border-l border-r border-white/5 bg-brand-surface backdrop-blur-sm">
+        
     <!-- Physics Ball -->
     <RealBall />
 
-    <!-- Navigation -->
+    <!-- Navigation (constrained to the central wrapper) -->
     <Navbar />
 
     <main class="pt-20">
@@ -30,19 +28,85 @@ import Navbar from '../components/Navbar.astro';
         <HonoursSection />
     </main>
 
-    <footer class="py-12 border-t border-black/10 bg-brand-text text-brand-bg text-center">
-        <p class="text-xs font-bold uppercase tracking-[0.2em] opacity-50">© 2026 Drop 11 Cricket Club</p>
+    <footer class="py-12 border-t border-white/10 text-center relative z-10">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] opacity-50 text-white">© 2026 Drop 11 Cricket Club</p>
     </footer>
+    
+    </div> <!-- End Central Wrapper -->
 
     <script is:inline>
-        // Update Scroll Progress Bars
-        window.addEventListener('scroll', () => {
-            const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollFraction = Math.max(0, Math.min(1, window.scrollY / scrollTotal));
-            const percentage = scrollFraction * 100;
+        const canvas = document.getElementById('deep-space-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const stars = [];
+        for (let i = 0; i < 400; i++) {
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 1.5,
+                speed: Math.random() * 0.5 + 0.1,
+                opacity: Math.random() * 0.8 + 0.2
+            });
+        }
+
+        const shootingStars = [];
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
             
-            document.getElementById('scroll-progress-left').style.height = `${percentage}%`;
-            document.getElementById('scroll-progress-right').style.height = `${percentage}%`;
-        });
+            // Draw regular stars drifting upwards
+            for (let star of stars) {
+                star.y -= star.speed;
+                if (star.y < 0) {
+                    star.y = height;
+                    star.x = Math.random() * width;
+                }
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Occasional shooting star
+            if (Math.random() < 0.01) {
+                shootingStars.push({
+                    x: Math.random() * width,
+                    y: 0,
+                    length: Math.random() * 80 + 20,
+                    speed: Math.random() * 10 + 5,
+                    opacity: 1
+                });
+            }
+
+            // Draw shooting stars
+            for (let i = shootingStars.length - 1; i >= 0; i--) {
+                let ss = shootingStars[i];
+                ss.x -= ss.speed;
+                ss.y += ss.speed;
+                ss.opacity -= 0.02;
+
+                ctx.strokeStyle = `rgba(255, 255, 255, ${Math.max(0, ss.opacity)})`;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(ss.x, ss.y);
+                ctx.lineTo(ss.x + ss.length, ss.y - ss.length);
+                ctx.stroke();
+
+                if (ss.opacity <= 0) shootingStars.splice(i, 1);
+            }
+
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
 </Layout>
