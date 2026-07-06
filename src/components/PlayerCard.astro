@@ -1,26 +1,15 @@
 ---
-const { id, name, role, jersey, imgUrl, index } = Astro.props;
+const { name, imgUrl } = Astro.props;
 ---
 <div class="border-heavy bg-brutal-white shadow-brutal group cursor-pointer flex flex-col" onclick="this.classList.toggle('bg-brutal-black'); this.classList.toggle('text-brutal-white');">
     
-    <!-- Top Metadata Bar -->
-    <div class="border-b-4 border-brutal-black bg-brutal-yellow flex justify-between p-3 font-mono text-sm md:text-base">
-        <span>[ID: {id}]</span>
-        <span>NO.{jersey}</span>
-    </div>
-    
     <!-- Aggressive Grayscale Image -->
     <div class="h-72 border-b-4 border-brutal-black relative overflow-hidden bg-brutal-white group-[.bg-brutal-black]:bg-brutal-black">
-        <div class="absolute top-0 left-0 bg-brutal-black text-brutal-white text-5xl p-3 z-10 font-bold border-r-4 border-b-4 border-brutal-white group-[.bg-brutal-black]:bg-brutal-white group-[.bg-brutal-black]:text-brutal-black group-[.bg-brutal-black]:border-brutal-black">{index}</div>
-        
         <img src={imgUrl} alt={name} class="w-full h-full object-cover grayscale contrast-[1.5] brightness-90 group-hover:scale-105 group-hover:grayscale-0 transition-transform duration-200" style="mix-blend-mode: hard-light;" />
     </div>
     
-    <!-- Typography Block -->
-    <div class="p-6 transition-colors duration-100 flex-grow flex flex-col justify-between">
-        <h3 class="text-5xl md:text-6xl tracking-tighter leading-[0.9] mb-6 uppercase">{name}</h3>
-        <p class="font-mono text-xl bg-brutal-black text-brutal-white group-[.bg-brutal-black]:bg-brutal-yellow group-[.bg-brutal-black]:text-brutal-black px-4 py-2 self-start uppercase">
-            {role}
-        </p>
+    <!-- Typography Block (Just Name) -->
+    <div class="p-6 transition-colors duration-100 flex-grow flex items-center justify-center text-center">
+        <h3 class="text-4xl md:text-5xl tracking-tighter leading-[0.9] uppercase">{name}</h3>
     </div>
 </div>

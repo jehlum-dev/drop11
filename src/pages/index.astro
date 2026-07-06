@@ -102,35 +102,27 @@ const players = [
     <!-- Awards Section -->
     <section id="awards" class="p-8 md:p-16 border-b-4 border-brutal-black bg-brutal-black text-brutal-white">
         <h2 class="text-[4rem] md:text-[8rem] tracking-tighter leading-none mb-12 border-b-8 border-brutal-yellow pb-6 text-brutal-yellow">AWARDS</h2>
-        <div class="flex flex-col gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
-            <!-- Award Row 1 -->
-            <div class="group flex flex-col md:flex-row items-center justify-between border-b-4 border-brutal-white pb-8 pt-4 cursor-pointer overflow-hidden relative">
-                <div class="text-4xl md:text-6xl tracking-tighter group-hover:text-brutal-yellow transition-colors group-hover:translate-x-8 transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] relative z-10">
-                    CHAMPIONSHIP CUP 2025
+            <!-- Award Card 1 -->
+            <div class="border-4 border-brutal-white bg-brutal-black hover:bg-brutal-white hover:text-brutal-black transition-colors duration-300 group flex flex-col cursor-pointer">
+                <div class="h-48 border-b-4 border-brutal-white group-hover:border-brutal-black overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Championship Cup" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" />
                 </div>
-                <div class="text-6xl md:text-8xl absolute right-0 opacity-0 group-hover:opacity-100 group-hover:scale-150 group-hover:-rotate-12 transform transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
-                    🏆
-                </div>
-            </div>
-
-            <!-- Award Row 2 -->
-            <div class="group flex flex-col md:flex-row items-center justify-between border-b-4 border-brutal-white pb-8 pt-8 cursor-pointer overflow-hidden relative">
-                <div class="text-4xl md:text-6xl tracking-tighter group-hover:text-brutal-yellow transition-colors group-hover:translate-x-8 transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] relative z-10">
-                    BEST OFFENSE LEAGUE
-                </div>
-                <div class="text-6xl md:text-8xl absolute right-0 opacity-0 group-hover:opacity-100 group-hover:scale-150 group-hover:rotate-12 transform transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
-                    🏏
+                <div class="p-6">
+                    <h3 class="text-3xl md:text-5xl font-black tracking-tighter mb-2">CHAMPIONSHIP CUP</h3>
+                    <p class="font-mono text-lg uppercase font-bold text-brutal-yellow group-hover:text-brutal-black">📍 LONDON, UK // 2025</p>
                 </div>
             </div>
 
-            <!-- Award Row 3 -->
-            <div class="group flex flex-col md:flex-row items-center justify-between border-b-4 border-brutal-white pb-8 pt-8 cursor-pointer overflow-hidden relative">
-                <div class="text-4xl md:text-6xl tracking-tighter group-hover:text-brutal-yellow transition-colors group-hover:translate-x-8 transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] relative z-10">
-                    UNDEFEATED SEASON 2024
+            <!-- Award Card 2 -->
+            <div class="border-4 border-brutal-white bg-brutal-black hover:bg-brutal-white hover:text-brutal-black transition-colors duration-300 group flex flex-col cursor-pointer">
+                <div class="h-48 border-b-4 border-brutal-white group-hover:border-brutal-black overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1526328828355-69b01701ca6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="League Trophy" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" />
                 </div>
-                <div class="text-6xl md:text-8xl absolute right-0 opacity-0 group-hover:opacity-100 group-hover:scale-150 group-hover:-rotate-6 transform transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
-                    ⭐
+                <div class="p-6">
+                    <h3 class="text-3xl md:text-5xl font-black tracking-tighter mb-2">UNDEFEATED SEASON</h3>
+                    <p class="font-mono text-lg uppercase font-bold text-brutal-yellow group-hover:text-brutal-black">📍 MELBOURNE, AUS // 2024</p>
                 </div>
             </div>
             
