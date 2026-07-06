@@ -1,32 +1,54 @@
 ---
 ---
-<div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto cursor-pointer group" onclick="cycleBallFilter()">
-    <!-- Using a single image, scaled slightly, with a feathered radial mask to flawlessly remove the background naturally -->
-    <img id="magic-ball" src="/red_ball.jpg" 
-         class="w-full h-full object-cover transition-all duration-1000 ease-in-out animate-levitate scale-[1.1]" 
-         style="-webkit-mask-image: radial-gradient(circle, black 64%, transparent 65.5%); mask-image: radial-gradient(circle, black 64%, transparent 65.5%);" 
-         alt="Cricket Ball" />
-         
-    <div class="mt-8 font-mono text-xs tracking-widest text-monolith-muted uppercase text-center opacity-70 group-hover:opacity-100 transition-opacity">
-        Tap ball to cycle format (Red/Pink/White)
+<div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto cursor-pointer group shadow-brutal border-heavy bg-brutal-white perspective-1000" onclick="cycleBrutalBall()">
+    
+    <div id="ball-container" class="relative w-full h-full overflow-hidden bg-brutal-bg transform-style-3d transition-transform duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+        <!-- Using the corrected images requested by the user -->
+        <img id="ball-1" src="/red_ball.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-100 mix-blend-multiply" alt="Red Ball" />
+        <img id="ball-2" src="/pink_ball.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-0 mix-blend-multiply" alt="Pink Ball" />
+        <img id="ball-3" src="/white_ball.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-0 mix-blend-multiply" alt="White Ball" />
+    </div>
+    
+    <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 font-mono text-xs md:text-sm tracking-widest text-brutal-black bg-brutal-yellow px-4 py-2 border-4 border-brutal-black uppercase text-center opacity-100 whitespace-nowrap shadow-[4px_4px_0_0_#050505] transform group-hover:scale-110 transition-transform duration-300 z-10">
+        TAP TO SPIN & CHANGE
     </div>
 </div>
 
+<style>
+.perspective-1000 { perspective: 1000px; }
+.transform-style-3d { transform-style: preserve-3d; }
+</style>
+
 <script is:inline>
-    let filterState = 0; // 0=red, 1=pink, 2=white
-    function cycleBallFilter() {
-        const ball = document.getElementById('magic-ball');
-        filterState = (filterState + 1) % 3;
+    let ballState = 0; // 0=red, 1=pink, 2=white
+    let rotation = 0;
+    
+    function cycleBrutalBall() {
+        const b1 = document.getElementById('ball-1');
+        const b2 = document.getElementById('ball-2');
+        const b3 = document.getElementById('ball-3');
+        const container = document.getElementById('ball-container');
         
-        if (filterState === 0) {
-            // True Red (Original)
-            ball.style.filter = 'none';
-        } else if (filterState === 1) {
-            // Pink: Rotate hue backwards from red to magenta, boost saturation
-            ball.style.filter = 'hue-rotate(-45deg) saturate(1.8) brightness(1.2)';
+        ballState = (ballState + 1) % 3;
+        rotation += 360; // Huge 3D spin animation
+        
+        container.style.transform = `rotateY(${rotation}deg) scale(1.15)`;
+        setTimeout(() => {
+            container.style.transform = `rotateY(${rotation}deg) scale(1)`;
+        }, 350);
+        
+        if (ballState === 0) {
+            b1.style.opacity = '1';
+            b2.style.opacity = '0';
+            b3.style.opacity = '0';
+        } else if (ballState === 1) {
+            b1.style.opacity = '0';
+            b2.style.opacity = '1';
+            b3.style.opacity = '0';
         } else {
-            // White: Remove color, boost brightness and contrast to simulate white leather
-            ball.style.filter = 'grayscale(1) brightness(1.9) contrast(1.15)';
+            b1.style.opacity = '0';
+            b2.style.opacity = '0';
+            b3.style.opacity = '1';
         }
     }
 </script>
