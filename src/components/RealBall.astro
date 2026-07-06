@@ -1,22 +1,16 @@
 ---
 ---
-<!-- Scroll-driven and Draggable Rolling Ball -->
-<div id="rolling-ball-wrapper" class="fixed right-4 md:right-16 w-32 h-32 md:w-48 md:h-48 z-40 top-[40vh] md:top-[100px]">
+<!-- Scroll-driven and Draggable Rolling Ball - MADE SMALLER -->
+<div id="rolling-ball-wrapper" class="fixed right-4 md:right-8 w-20 h-20 md:w-28 md:h-28 z-[100] top-[40vh] md:top-[150px]">
     <!-- The ball itself which rotates and scales -->
-    <div id="rolling-ball" class="relative w-full h-full rounded-full shadow-2xl transition-transform duration-75 ease-linear cursor-grab active:cursor-grabbing hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+    <div id="rolling-ball" class="relative w-full h-full rounded-full shadow-lg transition-transform duration-75 ease-linear cursor-grab active:cursor-grabbing hover:shadow-[0_15px_30px_rgba(227,38,54,0.4)]">
         <img id="scroll-ball-red" src="/red_ball.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 pointer-events-none" alt="Red Ball" />
         <img id="scroll-ball-pink" src="/pink_ball.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 pointer-events-none" alt="Pink Ball" />
         <img id="scroll-ball-white" src="/white_ball.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 pointer-events-none" alt="White Ball" />
     </div>
-    
-    <!-- Floating tool tip -->
-    <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs tracking-widest text-editorial-muted uppercase text-center opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
-        Drag Me
-    </div>
 </div>
 
 <script is:inline>
-    // Run client-side
     document.addEventListener('DOMContentLoaded', () => {
         const wrapper = document.getElementById('rolling-ball-wrapper');
         const ball = document.getElementById('rolling-ball');
@@ -26,18 +20,13 @@
         
         if (!wrapper || !ball) return;
         
-        let offsetX = 0;
-        let offsetY = 0;
+        let offsetX = 0; let offsetY = 0;
         let isDragging = false;
-        let startX, startY;
-        let initialOffsetX, initialOffsetY;
+        let startX, startY, initialOffsetX, initialOffsetY;
         let currentScrollY = window.scrollY;
         
-        // Physics variables for "throw" inertia
-        let velocityX = 0;
-        let velocityY = 0;
-        let lastX = 0;
-        let lastY = 0;
+        let velocityX = 0; let velocityY = 0;
+        let lastX = 0; let lastY = 0;
         let animationFrameId = null;
 
         function updateBallPosition() {
@@ -45,30 +34,18 @@
             const scrollFraction = currentScrollY / maxScroll;
             
             const isMobile = window.innerWidth < 768;
-            const initialTop = isMobile ? (window.innerHeight * 0.4) : 100;
-            const ballHeight = isMobile ? 128 : 192;
-            const paddingBottom = 50;
+            const initialTop = isMobile ? (window.innerHeight * 0.4) : 150;
+            const ballHeight = isMobile ? 80 : 112; // Adjusted for smaller ball
+            const paddingBottom = 40;
             
-            // Available space to roll down without going off-screen
             const availableViewportHeight = window.innerHeight - initialTop - ballHeight - paddingBottom;
-            
-            // Base vertical position from scroll, plus any drag offset
             const finalY = (scrollFraction * availableViewportHeight) + offsetY;
             
-            // Apply translation to wrapper
             wrapper.style.transform = `translate(${offsetX}px, ${finalY}px)`;
             
-            // Calculate rotation based on scroll AND drag distance
-            // Dragging horizontally also spins it!
-            const rotation = (currentScrollY * 0.4) + (offsetX * 0.8);
+            const rotation = (currentScrollY * 0.5) + (offsetX * 0.8);
+            ball.style.transform = isDragging ? `scale(1.1) rotate(${rotation}deg)` : `scale(1) rotate(${rotation}deg)`;
             
-            if (isDragging) {
-                ball.style.transform = `scale(1.15) rotate(${rotation}deg)`;
-            } else {
-                ball.style.transform = `scale(1) rotate(${rotation}deg)`;
-            }
-            
-            // Color transitions
             if (scrollFraction < 0.33) {
                 red.style.opacity = '1'; pink.style.opacity = '0'; white.style.opacity = '0';
             } else if (scrollFraction >= 0.33 && scrollFraction < 0.66) {
@@ -78,34 +55,21 @@
             }
         }
 
-        // --- Shared Interaction Handlers ---
         function handleDragStart(clientX, clientY) {
             isDragging = true;
-            startX = clientX;
-            startY = clientY;
-            lastX = clientX;
-            lastY = clientY;
-            initialOffsetX = offsetX;
-            initialOffsetY = offsetY;
-            
+            startX = clientX; startY = clientY;
+            lastX = clientX; lastY = clientY;
+            initialOffsetX = offsetX; initialOffsetY = offsetY;
             if (animationFrameId) cancelAnimationFrame(animationFrameId);
             updateBallPosition();
         }
 
         function handleDragMove(clientX, clientY) {
             if (!isDragging) return;
-            
-            const dx = clientX - startX;
-            const dy = clientY - startY;
-            
-            offsetX = initialOffsetX + dx;
-            offsetY = initialOffsetY + dy;
-            
-            velocityX = clientX - lastX;
-            velocityY = clientY - lastY;
-            lastX = clientX;
-            lastY = clientY;
-            
+            offsetX = initialOffsetX + (clientX - startX);
+            offsetY = initialOffsetY + (clientY - startY);
+            velocityX = clientX - lastX; velocityY = clientY - lastY;
+            lastX = clientX; lastY = clientY;
             updateBallPosition();
         }
 
@@ -115,61 +79,25 @@
             applyInertia();
         }
 
-        // --- Mouse Events ---
-        ball.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            handleDragStart(e.clientX, e.clientY);
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            handleDragMove(e.clientX, e.clientY);
-        });
-
+        ball.addEventListener('mousedown', (e) => { e.preventDefault(); handleDragStart(e.clientX, e.clientY); });
+        window.addEventListener('mousemove', (e) => handleDragMove(e.clientX, e.clientY));
         window.addEventListener('mouseup', handleDragEnd);
 
-        // --- Touch Events (Mobile) ---
-        ball.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Prevent page scroll when grabbing ball
-            handleDragStart(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: false });
-
-        window.addEventListener('touchmove', (e) => {
-            if (isDragging) {
-                // e.preventDefault() here stops pull-to-refresh if dragging ball
-                e.preventDefault(); 
-                handleDragMove(e.touches[0].clientX, e.touches[0].clientY);
-            }
-        }, { passive: false });
-
+        ball.addEventListener('touchstart', (e) => { e.preventDefault(); handleDragStart(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+        window.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); handleDragMove(e.touches[0].clientX, e.touches[0].clientY); } }, { passive: false });
         window.addEventListener('touchend', handleDragEnd);
         
         function applyInertia() {
-            if (Math.abs(velocityX) < 0.5 && Math.abs(velocityY) < 0.5) {
-                updateBallPosition();
-                return;
-            }
-            
-            // Friction
-            velocityX *= 0.92;
-            velocityY *= 0.92;
-            
-            offsetX += velocityX;
-            offsetY += velocityY;
-            
+            if (Math.abs(velocityX) < 0.5 && Math.abs(velocityY) < 0.5) { updateBallPosition(); return; }
+            velocityX *= 0.92; velocityY *= 0.92;
+            offsetX += velocityX; offsetY += velocityY;
             updateBallPosition();
-            
             if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
                 animationFrameId = requestAnimationFrame(applyInertia);
             }
         }
 
-        // --- Scroll Events ---
-        window.addEventListener('scroll', () => {
-            currentScrollY = window.scrollY;
-            updateBallPosition();
-        });
-        
-        // Initial setup
+        window.addEventListener('scroll', () => { currentScrollY = window.scrollY; updateBallPosition(); });
         updateBallPosition();
     });
 </script>

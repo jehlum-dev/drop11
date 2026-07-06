@@ -1,0 +1,29 @@
+---
+import awards from '../data/awards.json';
+---
+<section id="honours" class="py-24 md:py-32">
+    <div class="px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <span class="text-brand-accent font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Legacy</span>
+                <h2 class="text-5xl md:text-7xl font-serif italic tracking-tight text-brand-text">Club Honours</h2>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+            {awards.map((a) => (
+                <div class="group cursor-pointer">
+                    <!-- Image with extremely smooth parallax/scale hover -->
+                    <div class="aspect-[4/5] md:aspect-square overflow-hidden mb-8 bg-[#EFEFEF]">
+                        <img src={a.imgUrl} alt={a.title} class="w-full h-full object-cover filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-1000 ease-apple" />
+                    </div>
+                    <!-- Details -->
+                    <div class="flex flex-col items-center text-center">
+                        <h3 class="text-2xl md:text-3xl font-serif tracking-tight text-brand-text mb-3">{a.title}</h3>
+                        <p class="text-xs font-bold tracking-[0.2em] uppercase text-brand-text-muted">{a.subtext}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
