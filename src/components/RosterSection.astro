@@ -3,19 +3,18 @@ import players from '../data/players.json';
 import PlayerCard from './PlayerCard.astro';
 ---
 <section id="roster" class="py-24 md:py-32 overflow-hidden border-b border-black/10">
-    <div class="px-6 md:px-12 mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
-        <div>
-            <span class="text-brand-accent font-bold tracking-[0.2em] uppercase text-xs mb-4 block">The First XI</span>
-            <h2 class="text-5xl md:text-7xl font-serif italic tracking-tight text-brand-text">Our Squad</h2>
+    <div class="px-6 md:px-12 max-w-[1400px] mx-auto">
+        <div class="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
+            <div>
+                <span class="text-brand-accent font-bold tracking-[0.2em] uppercase text-xs mb-4 block">The First XI</span>
+                <h2 class="text-5xl md:text-7xl font-serif italic tracking-tight text-brand-text">Our Squad</h2>
+            </div>
         </div>
-        <p class="text-sm text-brand-text-muted font-medium uppercase tracking-widest hidden md:block">Hover to expand</p>
-    </div>
-    
-    <!-- Unique Interactive Accordion Presentation -->
-    <div class="w-full max-w-[1600px] mx-auto px-0 md:px-6">
-        <div class="flex flex-col md:flex-row h-[70vh] md:h-[600px] w-full rounded-none md:rounded-2xl overflow-hidden shadow-2xl bg-brand-text border border-black/20">
-            {players.map((p, index) => (
-                <PlayerCard name={p.name} imgUrl={p.imgUrl} index={index + 1} />
+        
+        <!-- Elegant, robust Grid layout that works flawlessly on PC and Mobile -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 lg:gap-12">
+            {players.map((p) => (
+                <PlayerCard name={p.name} imgUrl={p.imgUrl} />
             ))}
         </div>
     </div>

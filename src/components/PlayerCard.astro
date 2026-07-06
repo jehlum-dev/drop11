@@ -1,31 +1,21 @@
 ---
-const { name, imgUrl, index } = Astro.props;
-const formattedIndex = index < 10 ? `0${index}` : index;
+const { name, imgUrl } = Astro.props;
 ---
-<div class="group relative flex-1 hover:flex-[4] md:hover:flex-[8] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden border-b md:border-b-0 md:border-r border-black/20 last:border-0 cursor-pointer min-h-[60px] md:min-h-0 bg-brand-text">
+<div class="group relative flex flex-col cursor-pointer w-full bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] active:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-shadow duration-700 ease-apple border border-black/5 hover:border-black/10 active:border-black/10" ontouchstart="">
     
-    <!-- Background Image -->
-    <img src={imgUrl || 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'} 
-         alt={name} 
-         class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-         
-    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-    
-    <!-- Collapsed State Text (Vertical on desktop, horizontal on mobile) -->
-    <div class="absolute inset-0 flex items-center justify-center md:items-start md:justify-center md:pt-12 pointer-events-none group-hover:opacity-0 transition-opacity duration-300">
-        <!-- Mobile collapsed text -->
-        <span class="md:hidden text-white font-sans font-bold tracking-[0.2em] uppercase text-xs">
-            {formattedIndex}. {name.split(' ')[0]}
-        </span>
-        <!-- Desktop collapsed text (rotated) -->
-        <span class="hidden md:block text-white font-sans font-bold tracking-[0.3em] uppercase text-sm -rotate-90 whitespace-nowrap transform origin-center translate-y-16">
-            {name}
-        </span>
+    <!-- Player Image Wrapper -->
+    <div class="relative w-full aspect-[4/5] overflow-hidden bg-[#F9F9F9]">
+        <img src={imgUrl || 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'} 
+             alt={name} 
+             class="w-full h-full object-cover filter grayscale contrast-110 group-hover:grayscale-0 group-active:grayscale-0 transition-all duration-700 ease-apple group-hover:scale-[1.03] group-active:scale-[1.03]" />
+             
+        <!-- Subtle Hover Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-700 ease-apple"></div>
     </div>
     
-    <!-- Expanded State Text -->
-    <div class="absolute bottom-6 left-6 pointer-events-none opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700 delay-100 flex flex-col">
-        <span class="text-brand-accent font-bold text-xs tracking-widest mb-1">{formattedIndex}</span>
-        <h3 class="text-3xl md:text-5xl font-serif italic text-white leading-none tracking-tight whitespace-nowrap drop-shadow-lg">{name}</h3>
+    <!-- Player Info (No numbering) -->
+    <div class="relative z-20 p-6 md:p-8 bg-white flex flex-col items-center text-center">
+        <h3 class="text-2xl md:text-3xl font-serif tracking-tight text-brand-text mb-2 transform group-hover:-translate-y-1 group-active:-translate-y-1 transition-transform duration-500 ease-apple">{name}</h3>
+        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-text-muted group-hover:text-brand-accent group-active:text-brand-accent transition-colors duration-300">View Details</span>
     </div>
 </div>

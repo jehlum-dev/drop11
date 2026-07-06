@@ -9,9 +9,13 @@ import Navbar from '../components/Navbar.astro';
 ---
 <Layout title="Drop 11 | Perfect Edition">
     
-    <!-- Vibrant Side Glows (Strictly on sides, not inside) -->
-    <div class="fixed top-0 left-0 w-12 md:w-24 h-full bg-gradient-to-r from-[#FF007F] via-[#FF007F]/40 to-transparent opacity-30 blur-2xl z-[-1] pointer-events-none"></div>
-    <div class="fixed top-0 right-0 w-12 md:w-24 h-full bg-gradient-to-l from-[#00F0FF] via-[#00F0FF]/40 to-transparent opacity-30 blur-2xl z-[-1] pointer-events-none"></div>
+    <!-- Elegant Scroll Progress Sides -->
+    <div class="fixed top-0 left-0 w-1 h-full bg-black/5 z-[100] pointer-events-none">
+        <div id="scroll-progress-left" class="w-full bg-brand-accent transition-all duration-100 ease-out" style="height: 0%;"></div>
+    </div>
+    <div class="fixed top-0 right-0 w-1 h-full bg-black/5 z-[100] pointer-events-none flex flex-col justify-end">
+        <div id="scroll-progress-right" class="w-full bg-brand-accent transition-all duration-100 ease-out" style="height: 0%;"></div>
+    </div>
     
     <!-- Physics Ball -->
     <RealBall />
@@ -30,4 +34,15 @@ import Navbar from '../components/Navbar.astro';
         <p class="text-xs font-bold uppercase tracking-[0.2em] opacity-50">© 2026 Drop 11 Cricket Club</p>
     </footer>
 
+    <script is:inline>
+        // Update Scroll Progress Bars
+        window.addEventListener('scroll', () => {
+            const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollFraction = Math.max(0, Math.min(1, window.scrollY / scrollTotal));
+            const percentage = scrollFraction * 100;
+            
+            document.getElementById('scroll-progress-left').style.height = `${percentage}%`;
+            document.getElementById('scroll-progress-right').style.height = `${percentage}%`;
+        });
+    </script>
 </Layout>
