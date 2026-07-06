@@ -1,12 +1,15 @@
 ---
+const resolvePath = (p) => {
+    return import.meta.env.BASE_URL + p.replace(/^\//, '');
+};
 ---
 <!-- Scroll-driven and Draggable Rolling Ball - MADE SMALLER -->
 <div id="rolling-ball-wrapper" class="fixed right-4 md:right-8 w-20 h-20 md:w-28 md:h-28 z-[100] top-[40vh] md:top-[150px]">
     <!-- The ball itself which rotates and scales -->
     <div id="rolling-ball" class="relative w-full h-full rounded-full shadow-lg transition-transform duration-75 ease-linear cursor-grab active:cursor-grabbing hover:shadow-[0_15px_30px_rgba(227,38,54,0.4)]">
-        <img id="scroll-ball-red" src="/red_ball.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 pointer-events-none" alt="Red Ball" />
-        <img id="scroll-ball-pink" src="/pink_ball.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 pointer-events-none" alt="Pink Ball" />
-        <img id="scroll-ball-white" src="/white_ball.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 pointer-events-none" alt="White Ball" />
+        <img id="scroll-ball-red" src={resolvePath("red_ball.png")} class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 pointer-events-none" alt="Red Ball" />
+        <img id="scroll-ball-pink" src={resolvePath("pink_ball.png")} class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 pointer-events-none" alt="Pink Ball" />
+        <img id="scroll-ball-white" src={resolvePath("white_ball.png")} class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 pointer-events-none" alt="White Ball" />
     </div>
 </div>
 
