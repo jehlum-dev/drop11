@@ -4,7 +4,8 @@ const { name, imgUrl } = Astro.props;
 const resolvePath = (p) => {
     if (!p) return 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
     if (p.startsWith('http')) return p;
-    return import.meta.env.BASE_URL + p.replace(/^\//, '');
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    return `${base}/${p.replace(/^\//, '')}`;
 };
 ---
 <div class="group relative flex flex-col cursor-pointer w-full bg-black/40 backdrop-blur-md rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_40px_rgba(56,189,248,0.2)] active:shadow-[0_20px_40px_rgba(56,189,248,0.2)] transition-all duration-700 ease-apple border border-white/5 hover:border-brand-accent/50 active:border-brand-accent/50" ontouchstart="">

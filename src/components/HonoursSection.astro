@@ -4,7 +4,8 @@ import awards from '../data/awards.json';
 const resolvePath = (p) => {
     if (!p) return '';
     if (p.startsWith('http')) return p;
-    return import.meta.env.BASE_URL + p.replace(/^\//, '');
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    return `${base}/${p.replace(/^\//, '')}`;
 };
 ---
 <section id="honours" class="py-24 md:py-32 relative">

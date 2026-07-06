@@ -1,6 +1,7 @@
 ---
 const resolvePath = (p) => {
-    return import.meta.env.BASE_URL + p.replace(/^\//, '');
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    return `${base}/${p.replace(/^\//, '')}`;
 };
 ---
 <!-- Scroll-driven and Draggable Rolling Ball - MADE SMALLER -->
