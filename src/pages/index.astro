@@ -4,18 +4,10 @@ import PlayerCard from '../components/PlayerCard.astro';
 import InteractiveWicket from '../components/InteractiveWicket.astro';
 import RealBall from '../components/RealBall.astro';
 
-const players = [
-    { name: 'Talib Mir', imgUrl: '/talib.jpeg' },
-    { name: 'Nasir Mir', imgUrl: '/nasir.jpeg' },
-    { name: 'Anna Adil', imgUrl: '/adil.jpeg' },
-    { name: 'Faizan Mir', imgUrl: '/faizan.jpeg' },
-    { name: 'Hazim Mushtaq', imgUrl: '/hazim.jpeg' },
-    { name: 'Danish Javid', imgUrl: '' },
-    { name: 'Yasir Hameed', imgUrl: '' },
-    { name: 'Saqib Lefty', imgUrl: '' },
-    { name: 'Basit Peer', imgUrl: '' },
-    { name: 'Shahid Pacer', imgUrl: '' }
-];
+// Import JSON data independently
+import players from '../data/players.json';
+import matches from '../data/matches.json';
+import awards from '../data/awards.json';
 ---
 <Layout title="DROP 11 | CRICKET">
     <!-- Navbar -->
@@ -67,39 +59,18 @@ const players = [
     <section id="matches" class="p-8 md:p-16 border-b-4 border-brutal-black bg-brutal-bg">
         <h2 class="text-[4rem] md:text-[8rem] tracking-tighter leading-none mb-12 border-b-8 border-brutal-black pb-6">MATCHES</h2>
         <div class="flex flex-col gap-6">
-            
-            <!-- Match Row 1 -->
-            <div class="group border-4 border-brutal-black bg-brutal-white shadow-brutal flex justify-between items-center p-6 md:p-8 cursor-pointer hover:bg-brutal-black transition-colors overflow-hidden relative">
-                <!-- Background sweeping animation -->
-                <div class="absolute inset-0 w-0 bg-brutal-yellow group-hover:w-full transition-all duration-500 ease-out z-0"></div>
-                
-                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between w-full gap-4 md:gap-12">
-                    <span class="font-mono text-2xl md:text-3xl font-bold w-48 transform group-hover:translate-x-6 transition-transform duration-300 group-hover:text-brutal-black">OCT 12</span>
-                    <span class="text-4xl md:text-6xl tracking-tighter flex-grow transform group-hover:translate-x-12 transition-transform duration-300 delay-75 group-hover:text-brutal-black">VS. RED TITANS</span>
-                    <span class="font-mono text-3xl font-bold border-4 border-brutal-black px-6 py-2 transform group-hover:-translate-x-6 transition-transform duration-300 delay-150 bg-brutal-yellow text-brutal-black shadow-[4px_4px_0_0_#050505]">WIN</span>
+            {matches.map((m) => (
+                <div class="group border-4 border-brutal-black bg-brutal-white shadow-brutal flex justify-between items-center p-6 md:p-8 cursor-pointer hover:bg-brutal-black transition-colors overflow-hidden relative">
+                    <!-- Background sweeping animation -->
+                    <div class="absolute inset-0 w-0 bg-brutal-yellow group-hover:w-full transition-all duration-500 ease-out z-0"></div>
+                    
+                    <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between w-full gap-4 md:gap-12">
+                        <span class="font-mono text-2xl md:text-3xl font-bold w-48 transform group-hover:translate-x-6 transition-transform duration-300 group-hover:text-brutal-black">{m.date}</span>
+                        <span class="text-4xl md:text-6xl tracking-tighter flex-grow transform group-hover:translate-x-12 transition-transform duration-300 delay-75 group-hover:text-brutal-black">VS. {m.opponent}</span>
+                        <span class={`font-mono text-3xl font-bold border-4 border-brutal-black px-6 py-2 transform group-hover:-translate-x-6 transition-transform duration-300 delay-150 text-brutal-black shadow-[4px_4px_0_0_#050505] ${m.bgColor}`}>{m.status}</span>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Match Row 2 -->
-            <div class="group border-4 border-brutal-black bg-brutal-white shadow-brutal flex justify-between items-center p-6 md:p-8 cursor-pointer hover:bg-brutal-black transition-colors overflow-hidden relative">
-                <div class="absolute inset-0 w-0 bg-brutal-yellow group-hover:w-full transition-all duration-500 ease-out z-0"></div>
-                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between w-full gap-4 md:gap-12">
-                    <span class="font-mono text-2xl md:text-3xl font-bold w-48 transform group-hover:translate-x-6 transition-transform duration-300 group-hover:text-brutal-black">NOV 05</span>
-                    <span class="text-4xl md:text-6xl tracking-tighter flex-grow transform group-hover:translate-x-12 transition-transform duration-300 delay-75 group-hover:text-brutal-black">VS. GREEN EAGLES</span>
-                    <span class="font-mono text-3xl font-bold border-4 border-brutal-black px-6 py-2 transform group-hover:-translate-x-6 transition-transform duration-300 delay-150 bg-brutal-white text-brutal-black shadow-[4px_4px_0_0_#050505]">UPCOMING</span>
-                </div>
-            </div>
-
-            <!-- Match Row 3 -->
-            <div class="group border-4 border-brutal-black bg-brutal-white shadow-brutal flex justify-between items-center p-6 md:p-8 cursor-pointer hover:bg-brutal-black transition-colors overflow-hidden relative">
-                <div class="absolute inset-0 w-0 bg-brutal-yellow group-hover:w-full transition-all duration-500 ease-out z-0"></div>
-                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between w-full gap-4 md:gap-12">
-                    <span class="font-mono text-2xl md:text-3xl font-bold w-48 transform group-hover:translate-x-6 transition-transform duration-300 group-hover:text-brutal-black">DEC 20</span>
-                    <span class="text-4xl md:text-6xl tracking-tighter flex-grow transform group-hover:translate-x-12 transition-transform duration-300 delay-75 group-hover:text-brutal-black">VS. VOID WALKERS</span>
-                    <span class="font-mono text-3xl font-bold border-4 border-brutal-black px-6 py-2 transform group-hover:-translate-x-6 transition-transform duration-300 delay-150 bg-brutal-white text-brutal-black shadow-[4px_4px_0_0_#050505]">UPCOMING</span>
-                </div>
-            </div>
-            
+            ))}
         </div>
     </section>
 
@@ -107,29 +78,17 @@ const players = [
     <section id="awards" class="p-8 md:p-16 border-b-4 border-brutal-black bg-brutal-black text-brutal-white">
         <h2 class="text-[4rem] md:text-[8rem] tracking-tighter leading-none mb-12 border-b-8 border-brutal-yellow pb-6 text-brutal-yellow">AWARDS</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            <!-- Award Card 1 -->
-            <div class="border-4 border-brutal-white bg-brutal-black hover:bg-brutal-white hover:text-brutal-black transition-colors duration-300 group flex flex-col cursor-pointer">
-                <div class="h-48 border-b-4 border-brutal-white group-hover:border-brutal-black overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Championship Cup" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" />
+            {awards.map((a) => (
+                <div class="border-4 border-brutal-white bg-brutal-black hover:bg-brutal-white hover:text-brutal-black transition-colors duration-300 group flex flex-col cursor-pointer">
+                    <div class="h-48 border-b-4 border-brutal-white group-hover:border-brutal-black overflow-hidden relative">
+                        <img src={a.imgUrl} alt={a.title} class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" />
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-3xl md:text-5xl font-black tracking-tighter mb-2 uppercase">{a.title}</h3>
+                        <p class="font-mono text-lg uppercase font-bold text-brutal-yellow group-hover:text-brutal-black">{a.subtext}</p>
+                    </div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-3xl md:text-5xl font-black tracking-tighter mb-2">CHAMPIONSHIP CUP</h3>
-                    <p class="font-mono text-lg uppercase font-bold text-brutal-yellow group-hover:text-brutal-black">📍 LONDON, UK // 2025</p>
-                </div>
-            </div>
-
-            <!-- Award Card 2 -->
-            <div class="border-4 border-brutal-white bg-brutal-black hover:bg-brutal-white hover:text-brutal-black transition-colors duration-300 group flex flex-col cursor-pointer">
-                <div class="h-48 border-b-4 border-brutal-white group-hover:border-brutal-black overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1526328828355-69b01701ca6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="League Trophy" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" />
-                </div>
-                <div class="p-6">
-                    <h3 class="text-3xl md:text-5xl font-black tracking-tighter mb-2">UNDEFEATED SEASON</h3>
-                    <p class="font-mono text-lg uppercase font-bold text-brutal-yellow group-hover:text-brutal-black">📍 MELBOURNE, AUS // 2024</p>
-                </div>
-            </div>
-            
+            ))}
         </div>
     </section>
 
