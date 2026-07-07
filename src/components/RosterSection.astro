@@ -1,6 +1,9 @@
 ---
 import players from '../data/players.json';
 import PlayerCard from './PlayerCard.astro';
+
+// Shuffle the players array to display in a random order
+const shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
 ---
 <section id="roster" class="py-24 md:py-32 overflow-hidden border-b border-black/10">
     <div class="px-6 md:px-12 max-w-[1400px] mx-auto">
@@ -13,7 +16,7 @@ import PlayerCard from './PlayerCard.astro';
         
         <!-- Elegant, robust Grid layout that works flawlessly on PC and Mobile -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 lg:gap-12">
-            {players.map((p) => (
+            {shuffledPlayers.map((p) => (
                 <PlayerCard name={p.name} imgUrl={p.imgUrl} />
             ))}
         </div>
