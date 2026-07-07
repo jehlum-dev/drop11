@@ -1,23 +1,87 @@
 ---
 ---
-<header class="relative min-h-[90vh] flex flex-col justify-center items-center text-center px-6 md:px-12 border-b border-black/10 overflow-hidden">
+<header class="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden border-b border-white/5" id="hero-header">
     
-    <!-- Poetry Text -->
-    <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif italic tracking-tight leading-[1.1] text-brand-text mb-12 drop-shadow-sm">
-            "koī mere dil se pūchhe tire tīr-e-nīm-kash ko<br>
-            ye ḳhalish kahāñ se hotī jo jigar ke paar hotā"
-        </h1>
-        
-        <div class="w-12 h-[2px] bg-brand-accent mb-8"></div>
-        
-        <p class="text-lg md:text-xl font-sans tracking-[0.2em] uppercase text-brand-text-muted font-medium">
-            We are a simple cricket team.
+    <!-- Dynamic Mouse Spotlight -->
+    <div id="hero-spotlight" class="absolute inset-0 pointer-events-none opacity-70 mix-blend-screen transition-all duration-300 ease-out" 
+         style="background: radial-gradient(circle at 50% 50%, rgba(204,255,0,0.1) 0%, transparent 40%);"></div>
+
+    <!-- Giant Faded Background Urdu Text (Typographic Art) -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5 overflow-hidden">
+        <p class="text-[8rem] md:text-[15rem] font-serif italic text-white whitespace-nowrap -rotate-6 blur-[2px]" dir="rtl">
+            تیر نیم کش
         </p>
     </div>
-    
-    <!-- Decorative background elements -->
-    <div class="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none opacity-[0.03]">
-        <h2 class="text-[15vw] font-bold tracking-tighter leading-none whitespace-nowrap text-center">DROP 11</h2>
+
+    <!-- Main Content Container -->
+    <div class="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-[-10vh]">
+        
+        <!-- Left: Massive Brand Typography -->
+        <div class="flex flex-col items-start text-left">
+            <div class="inline-flex items-center gap-4 mb-8 animate-fade-in">
+                <span class="w-12 h-[1px] bg-brand-accent"></span>
+                <span class="text-xs font-bold tracking-[0.5em] uppercase text-brand-accent">Drop 11</span>
+            </div>
+            
+            <h1 class="text-[5rem] sm:text-[7rem] md:text-[9rem] lg:text-[11rem] font-black tracking-tighter leading-[0.8] text-white animate-slide-up">
+                DROP<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-br from-[#ccff00] to-green-600 drop-shadow-[0_0_30px_rgba(204,255,0,0.3)]">11</span>
+            </h1>
+        </div>
+        
+        <!-- Right: Cinematic Poetry -->
+        <div class="flex flex-col items-end text-right border-r-2 border-brand-accent/50 pr-6 md:pr-10 animate-fade-in delay-300">
+            <span class="text-6xl text-brand-accent/20 font-serif leading-none mb-4">"</span>
+            
+            <p class="text-2xl md:text-4xl lg:text-5xl font-serif italic text-white leading-relaxed drop-shadow-lg" dir="rtl">
+                کوئی میرے دل سے پوچھے<br>
+                <span class="text-[#ccff00]">ترے تیر نیم کش کو</span>
+            </p>
+            <p class="text-xl md:text-3xl lg:text-4xl font-serif italic text-white/50 leading-relaxed mt-4" dir="rtl">
+                یہ خلش کہاں سے ہوتی جو جگر کے پار ہوتا
+            </p>
+            
+            <p class="mt-12 text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase text-white/30">
+                We are a simple cricket team.
+            </p>
+        </div>
     </div>
 </header>
+
+<style>
+    .animate-fade-in { animation: fadeIn 1.5s ease-out forwards; opacity: 0; }
+    .animate-slide-up { animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(40px); }
+    .delay-300 { animation-delay: 300ms; }
+    
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+</style>
+
+<script is:inline>
+    // Spotlight Effect
+    const hero = document.getElementById('hero-header');
+    const spotlight = document.getElementById('hero-spotlight');
+    
+    if (hero && spotlight) {
+        // Initial state for mobile (centered)
+        let isHovering = false;
+        
+        hero.addEventListener('mousemove', (e) => {
+            isHovering = true;
+            const rect = hero.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Remove the transition so it tracks instantly while moving
+            spotlight.style.transition = 'none';
+            spotlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(204,255,0,0.15) 0%, transparent 50%)`;
+        });
+        
+        hero.addEventListener('mouseleave', () => {
+            isHovering = false;
+            // Restore transition for smooth snap-back
+            spotlight.style.transition = 'background 1s ease-out';
+            spotlight.style.background = `radial-gradient(circle at 50% 50%, rgba(204,255,0,0.1) 0%, transparent 40%)`;
+        });
+    }
+</script>
