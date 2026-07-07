@@ -1,6 +1,10 @@
 ---
 import '../styles/global.css';
-const { title } = Astro.props;
+const { 
+    title = "Drop 11 | Deep Space Edition",
+    description = "We are a simple cricket team. Experience the premium deep space aesthetic of Drop 11 Cricket Club."
+} = Astro.props;
+const ogImage = "/og-image.jpg";
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -8,14 +12,25 @@ const { title } = Astro.props;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
+    <meta name="description" content={description}>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.url)} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={Astro.url} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.url)} />
+    
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body class="font-display font-black overflow-x-hidden selection:bg-brutal-yellow selection:text-brutal-black uppercase leading-none">
-    
-    <!-- Main Architectural Container -->
-    <div class="relative z-10 max-w-[1400px] mx-auto border-x-4 border-brutal-black min-h-screen bg-brutal-white shadow-[20px_0_0_0_#050505,-20px_0_0_0_#050505] md:my-10 border-y-4">
-        <slot />
-    </div>
-
+<body class="font-display overflow-x-hidden selection:bg-[#ccff00] selection:text-black leading-none bg-[#020204]">
+    <slot />
 </body>
 </html>
