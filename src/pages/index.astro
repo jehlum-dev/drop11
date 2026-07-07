@@ -12,11 +12,11 @@ import Navbar from '../components/Navbar.astro';
     <!-- Dynamic Deep Space Canvas -->
     <canvas id="deep-space-canvas" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none"></canvas>
     
+    <!-- Physics Ball (Fixed to viewport) -->
+    <RealBall />
+
     <!-- Central Content Wrapper (Translucent so space shows through) -->
     <div class="max-w-[1200px] mx-auto min-h-screen relative border-l border-r border-white/5 bg-brand-surface backdrop-blur-sm">
-        
-    <!-- Physics Ball -->
-    <RealBall />
 
     <!-- Navigation (constrained to the central wrapper) -->
     <Navbar />
@@ -60,24 +60,64 @@ import Navbar from '../components/Navbar.astro';
         }
 
         const shootingStars = [];
+        const sparks = [];
+
+        window.createSparks = function(x, y) {
+            for (let i = 0; i < 20; i++) {
+                sparks.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 15,
+                    vy: (Math.random() - 0.5) * 15,
+                    life: 1.0,
+                    color: Math.random() > 0.5 ? '#e32636' : '#ffb6c1'
+                });
+            }
+        };
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
             
-            // Draw regular stars drifting upwards
+            // Get ball position for gravity effect
+            const ballWrapper = document.getElementById('rolling-ball-wrapper');
+            let ballX = -1000, ballY = -1000;
+            if (ballWrapper) {
+                const rect = ballWrapper.getBoundingClientRect();
+                ballX = rect.left + rect.width / 2;
+                ballY = rect.top + rect.height / 2;
+            }
+
+            // Regular stars with gravity distortion
             for (let star of stars) {
                 star.y -= star.speed;
                 if (star.y < 0) {
                     star.y = height;
                     star.x = Math.random() * width;
                 }
-                ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+                
+                let drawX = star.x;
+                let drawY = star.y;
+                
+                const dx = ballX - star.x;
+                const dy = ballY - star.y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                
+                // Black hole gravity effect
+                if (dist < 250 && dist > 0) {
+                    const pull = Math.pow((250 - dist) / 250, 2) * 40; 
+                    drawX += (dx / dist) * pull;
+                    drawY += (dy / dist) * pull;
+                    ctx.fillStyle = `rgba(255, 200, 200, ${star.opacity + 0.3})`; // Glow when sucked
+                } else {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+                }
+
                 ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.arc(drawX, drawY, star.size + (dist < 250 ? 0.5 : 0), 0, Math.PI * 2);
                 ctx.fill();
             }
 
-            // Occasional shooting star
+            // Shooting star spawn
             if (Math.random() < 0.01) {
                 shootingStars.push({
                     x: Math.random() * width,
@@ -88,7 +128,6 @@ import Navbar from '../components/Navbar.astro';
                 });
             }
 
-            // Draw shooting stars
             for (let i = shootingStars.length - 1; i >= 0; i--) {
                 let ss = shootingStars[i];
                 ss.x -= ss.speed;
@@ -103,6 +142,24 @@ import Navbar from '../components/Navbar.astro';
                 ctx.stroke();
 
                 if (ss.opacity <= 0) shootingStars.splice(i, 1);
+            }
+            
+            // Sparks from ball bounces
+            for (let i = sparks.length - 1; i >= 0; i--) {
+                let sp = sparks[i];
+                sp.x += sp.vx;
+                sp.y += sp.vy;
+                sp.vy += 0.5; // gravity
+                sp.life -= 0.02;
+                
+                ctx.fillStyle = sp.color;
+                ctx.globalAlpha = Math.max(0, sp.life);
+                ctx.beginPath();
+                ctx.arc(sp.x, sp.y, 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+                
+                if (sp.life <= 0) sparks.splice(i, 1);
             }
 
             requestAnimationFrame(animate);

@@ -1,0 +1,191 @@
+---
+import players from '../data/players.json';
+
+const resolvePath = (p) => {
+    if (!p) return 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80';
+    if (p.startsWith('http')) return p;
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    return `${base}/${p.replace(/^\//, '')}`;
+};
+
+const resolvedPlayers = players.map(p => ({
+    name: p.name.split(' ')[0],
+    imgUrl: resolvePath(p.imgUrl)
+}));
+
+const ballRed = resolvePath("red_ball.png");
+const ballPink = resolvePath("pink_ball.png");
+const ballWhite = resolvePath("white_ball.png");
+---
+
+<!-- Fixed container for the "Playing Catch" animation -->
+<div id="catch-animation-container" class="fixed inset-0 z-30 pointer-events-none overflow-hidden">
+    <div id="catch-ball" class="absolute left-0 top-0 w-6 h-6 md:w-8 md:h-8 z-10 transition-all duration-500 ease-in-out opacity-0">
+        <img id="catch-ball-red" src={ballRed} alt="Red Ball" class="absolute inset-0 w-full h-full rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.5)] object-cover transition-opacity duration-300" />
+        <img id="catch-ball-pink" src={ballPink} alt="Pink Ball" class="absolute inset-0 w-full h-full rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.5)] object-cover transition-opacity duration-300 opacity-0" />
+        <img id="catch-ball-white" src={ballWhite} alt="White Ball" class="absolute inset-0 w-full h-full rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.5)] object-cover transition-opacity duration-300 opacity-0" />
+    </div>
+</div>
+
+<script is:inline define:vars={{ resolvedPlayers }}>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('catch-animation-container');
+        const ball = document.getElementById('catch-ball');
+        const ballRed = document.getElementById('catch-ball-red');
+        const ballPink = document.getElementById('catch-ball-pink');
+        const ballWhite = document.getElementById('catch-ball-white');
+        
+        if (!container || !ball || !resolvedPlayers || resolvedPlayers.length === 0) return;
+
+        const numPlayers = Math.min(5, resolvedPlayers.length);
+        const nameElements = [];
+
+        const shuffled = [...resolvedPlayers].sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, numPlayers);
+
+        selected.forEach((player, i) => {
+            const el = document.createElement('div');
+            // FIX: Added left-0 top-0 so absolute positioning matches translate correctly
+            el.className = 'absolute left-0 top-0 flex flex-col items-center transition-transform duration-300';
+            
+            const img = document.createElement('img');
+            img.src = player.imgUrl;
+            img.className = 'w-10 h-10 md:w-14 md:h-14 rounded-full object-cover border-2 border-white/20 shadow-lg mb-1 bg-black/50 transition-all duration-300 transform scale-100';
+            
+            const nameEl = document.createElement('span');
+            nameEl.textContent = player.name;
+            nameEl.className = 'text-[9px] md:text-xs font-bold uppercase tracking-wider text-white bg-black/40 px-1 rounded backdrop-blur-sm transition-colors duration-300';
+            
+            el.appendChild(img);
+            el.appendChild(nameEl);
+            
+            const x = Math.random() * (window.innerWidth - 80) + 40;
+            const y = Math.random() * (window.innerHeight - 100) + 50;
+            
+            const vx = (Math.random() - 0.5) * 1.5;
+            const vy = (Math.random() - 0.5) * 1.5;
+
+            el.style.transform = `translate(${x}px, ${y}px)`;
+            
+            container.appendChild(el);
+            nameElements.push({ el, img, nameEl, x, y, vx, vy, hasBall: false });
+        });
+
+        let currentHolder = 0;
+        nameElements[currentHolder].hasBall = true;
+        nameElements[currentHolder].img.classList.replace('border-white/20', 'border-brand-accent');
+        nameElements[currentHolder].img.classList.replace('scale-100', 'scale-125'); // pop effect
+        nameElements[currentHolder].nameEl.classList.replace('text-white', 'text-brand-accent');
+        
+        ball.style.opacity = '1';
+        let isDropping = false;
+        updateBallPos();
+
+        function updateBallPos() {
+            if (isDropping) return;
+            const holder = nameElements[currentHolder];
+            // Get precise position of the avatar image itself to center the ball perfectly
+            const imgRect = holder.img.getBoundingClientRect();
+            if (imgRect.width === 0) return; // not rendered yet
+            ball.style.transform = `translate(${imgRect.left + imgRect.width / 2 - ball.offsetWidth / 2}px, ${imgRect.top + imgRect.height / 2 - ball.offsetHeight / 2}px)`;
+        }
+
+        function floatNames() {
+            nameElements.forEach((p) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Accurate bounding boxes
+                const elWidth = p.el.offsetWidth || 60;
+                const elHeight = p.el.offsetHeight || 80;
+                
+                if (p.x <= 0) { p.x = 0; p.vx *= -1; }
+                else if (p.x + elWidth >= window.innerWidth) { p.x = window.innerWidth - elWidth; p.vx *= -1; }
+                
+                if (p.y <= 0) { p.y = 0; p.vy *= -1; }
+                else if (p.y + elHeight >= window.innerHeight) { p.y = window.innerHeight - elHeight; p.vy *= -1; }
+
+                p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
+            });
+
+            if (!isThrowing && !isDropping) {
+                updateBallPos();
+            }
+
+            requestAnimationFrame(floatNames);
+        }
+
+        let isThrowing = false;
+
+        function setBallColor(color) {
+            ballRed.style.opacity = color === 'red' ? '1' : '0';
+            ballPink.style.opacity = color === 'pink' ? '1' : '0';
+            ballWhite.style.opacity = color === 'white' ? '1' : '0';
+        }
+
+        setInterval(() => {
+            if (isThrowing || isDropping || nameElements.length <= 1) return;
+            
+            isThrowing = true;
+            
+            nameElements[currentHolder].img.classList.replace('border-brand-accent', 'border-white/20');
+            nameElements[currentHolder].img.classList.replace('scale-125', 'scale-100');
+            nameElements[currentHolder].nameEl.classList.replace('text-brand-accent', 'text-white');
+            nameElements[currentHolder].hasBall = false;
+
+            let nextHolder = currentHolder;
+            while (nextHolder === currentHolder) {
+                nextHolder = Math.floor(Math.random() * nameElements.length);
+            }
+
+            const target = nameElements[nextHolder];
+            const targetImgRect = target.img.getBoundingClientRect();
+            
+            // Randomly change ball color in flight!
+            const colors = ['red', 'pink', 'white'];
+            setBallColor(colors[Math.floor(Math.random() * colors.length)]);
+            
+            ball.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+            ball.style.transform = `translate(${targetImgRect.left + targetImgRect.width / 2 - ball.offsetWidth / 2}px, ${targetImgRect.top + targetImgRect.height / 2 - ball.offsetHeight / 2}px) rotate(720deg)`;
+
+            // 15% chance to drop the ball
+            const willDrop = Math.random() < 0.15;
+
+            setTimeout(() => {
+                if (willDrop) {
+                    isDropping = true;
+                    // Fumbled! Ball falls straight down
+                    const currentBallRect = ball.getBoundingClientRect();
+                    ball.style.transition = 'transform 0.6s ease-in';
+                    ball.style.transform = `translate(${currentBallRect.left}px, ${window.innerHeight + 50}px) rotate(1440deg)`;
+                    
+                    setTimeout(() => {
+                        // After ball falls, magically reset to someone new
+                        currentHolder = nextHolder;
+                        target.hasBall = true;
+                        target.img.classList.replace('border-white/20', 'border-brand-accent');
+                        target.img.classList.replace('scale-100', 'scale-125');
+                        target.nameEl.classList.replace('text-white', 'text-brand-accent');
+                        ball.style.transition = 'none';
+                        ball.style.opacity = '0'; 
+                        isDropping = false;
+                        isThrowing = false;
+                        setTimeout(() => ball.style.opacity = '1', 100);
+                    }, 600);
+                } else {
+                    // Caught!
+                    currentHolder = nextHolder;
+                    target.hasBall = true;
+                    target.img.classList.replace('border-white/20', 'border-brand-accent');
+                    target.img.classList.replace('scale-100', 'scale-125');
+                    target.nameEl.classList.replace('text-white', 'text-brand-accent');
+                    ball.style.transition = 'none'; 
+                    isThrowing = false;
+                }
+            }, 600);
+
+        }, 2500);
+
+        floatNames();
+    });
+</script>

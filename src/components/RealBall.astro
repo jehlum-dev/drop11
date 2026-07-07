@@ -4,9 +4,9 @@ const resolvePath = (p) => {
     return `${base}/${p.replace(/^\//, '')}`;
 };
 ---
-<!-- Scroll-driven and Draggable Rolling Ball - MADE SMALLER -->
-<div id="rolling-ball-wrapper" class="fixed right-4 md:right-8 w-20 h-20 md:w-28 md:h-28 z-[100] top-[40vh] md:top-[150px]">
-    <!-- The ball itself which rotates and scales -->
+
+<!-- Fixed physics ball, using left-0 top-0 for perfect boundary math -->
+<div id="rolling-ball-wrapper" class="fixed left-0 top-0 w-20 h-20 md:w-28 md:h-28 z-[100]">
     <div id="rolling-ball" class="relative w-full h-full rounded-full shadow-lg transition-transform duration-75 ease-linear cursor-grab active:cursor-grabbing hover:shadow-[0_15px_30px_rgba(227,38,54,0.4)]">
         <img id="scroll-ball-red" src={resolvePath("red_ball.png")} class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 pointer-events-none" alt="Red Ball" />
         <img id="scroll-ball-pink" src={resolvePath("pink_ball.png")} class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 pointer-events-none" alt="Pink Ball" />
@@ -24,84 +24,188 @@ const resolvePath = (p) => {
         
         if (!wrapper || !ball) return;
         
-        let offsetX = 0; let offsetY = 0;
+        const isMobile = window.innerWidth < 768;
+        const initialTop = isMobile ? (window.innerHeight * 0.4) : 150;
+        const sidePadding = isMobile ? 16 : 32;
+        const bottomPadding = 60; // "little above not all the way down"
+        const ballWidth = isMobile ? 80 : 112; 
+        
+        function getContainerLeft() { return window.innerWidth > 1200 ? (window.innerWidth - 1200) / 2 : 0; }
+        function getContainerWidth() { return window.innerWidth > 1200 ? 1200 : window.innerWidth; }
+        
+        // Start near the right side of the container
+        let offsetX = getContainerLeft() + getContainerWidth() - sidePadding - ballWidth;
+        let offsetY = initialTop;
+        
         let isDragging = false;
         let startX, startY, initialOffsetX, initialOffsetY;
-        let currentScrollY = window.scrollY;
         
-        let velocityX = 0; let velocityY = 0;
-        let lastX = 0; let lastY = 0;
-        let animationFrameId = null;
-
-        function updateBallPosition() {
-            const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-            const scrollFraction = currentScrollY / maxScroll;
-            
-            const isMobile = window.innerWidth < 768;
-            const initialTop = isMobile ? (window.innerHeight * 0.4) : 150;
-            const ballHeight = isMobile ? 80 : 112; // Adjusted for smaller ball
-            const paddingBottom = 40;
-            
-            const availableViewportHeight = window.innerHeight - initialTop - ballHeight - paddingBottom;
-            const finalY = (scrollFraction * availableViewportHeight) + offsetY;
-            
-            wrapper.style.transform = `translate(${offsetX}px, ${finalY}px)`;
-            
-            const rotation = (currentScrollY * 0.5) + (offsetX * 0.8);
-            ball.style.transform = isDragging ? `scale(1.1) rotate(${rotation}deg)` : `scale(1) rotate(${rotation}deg)`;
-            
-            if (scrollFraction < 0.33) {
-                red.style.opacity = '1'; pink.style.opacity = '0'; white.style.opacity = '0';
-            } else if (scrollFraction >= 0.33 && scrollFraction < 0.66) {
-                red.style.opacity = '0'; pink.style.opacity = '1'; white.style.opacity = '0';
-            } else {
-                red.style.opacity = '0'; pink.style.opacity = '0'; white.style.opacity = '1';
-            }
+        let velocityX = (Math.random() - 0.5) * 10; 
+        let velocityY = 0;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        let rotation = 0;
+        
+        let currentBigBallColor = 0;
+        function cycleBigBallColor() {
+            currentBigBallColor = (currentBigBallColor + 1) % 3;
+            red.style.opacity = currentBigBallColor === 0 ? '1' : '0';
+            pink.style.opacity = currentBigBallColor === 1 ? '1' : '0';
+            white.style.opacity = currentBigBallColor === 2 ? '1' : '0';
         }
 
-        function handleDragStart(clientX, clientY) {
+        window.addEventListener('mousemove', (e) => {
+            const mouseVx = e.clientX - lastMouseX;
+            const mouseVy = e.clientY - lastMouseY;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+
+            if (isDragging) {
+                offsetX = initialOffsetX + (e.clientX - startX);
+                offsetY = initialOffsetY + (e.clientY - startY);
+                velocityX = mouseVx; 
+                velocityY = mouseVy;
+            }
+        });
+
+        ball.addEventListener('mousedown', (e) => { 
+            e.preventDefault(); 
             isDragging = true;
-            startX = clientX; startY = clientY;
-            lastX = clientX; lastY = clientY;
+            startX = e.clientX; startY = e.clientY;
             initialOffsetX = offsetX; initialOffsetY = offsetY;
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            updateBallPosition();
-        }
+            lastMouseX = e.clientX; lastMouseY = e.clientY;
+            ball.style.transform = `scale(1.1) rotate(${rotation}deg)`;
+        });
 
-        function handleDragMove(clientX, clientY) {
-            if (!isDragging) return;
-            offsetX = initialOffsetX + (clientX - startX);
-            offsetY = initialOffsetY + (clientY - startY);
-            velocityX = clientX - lastX; velocityY = clientY - lastY;
-            lastX = clientX; lastY = clientY;
-            updateBallPosition();
-        }
-
-        function handleDragEnd() {
-            if (!isDragging) return;
-            isDragging = false;
-            applyInertia();
-        }
-
-        ball.addEventListener('mousedown', (e) => { e.preventDefault(); handleDragStart(e.clientX, e.clientY); });
-        window.addEventListener('mousemove', (e) => handleDragMove(e.clientX, e.clientY));
-        window.addEventListener('mouseup', handleDragEnd);
-
-        ball.addEventListener('touchstart', (e) => { e.preventDefault(); handleDragStart(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
-        window.addEventListener('touchmove', (e) => { if (isDragging) { e.preventDefault(); handleDragMove(e.touches[0].clientX, e.touches[0].clientY); } }, { passive: false });
-        window.addEventListener('touchend', handleDragEnd);
-        
-        function applyInertia() {
-            if (Math.abs(velocityX) < 0.5 && Math.abs(velocityY) < 0.5) { updateBallPosition(); return; }
-            velocityX *= 0.92; velocityY *= 0.92;
-            offsetX += velocityX; offsetY += velocityY;
-            updateBallPosition();
-            if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
-                animationFrameId = requestAnimationFrame(applyInertia);
+        window.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                ball.style.transform = `scale(1) rotate(${rotation}deg)`;
             }
+        });
+
+        // Touch support
+        ball.addEventListener('touchstart', (e) => { 
+            e.preventDefault(); 
+            isDragging = true;
+            startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+            initialOffsetX = offsetX; initialOffsetY = offsetY;
+            lastMouseX = startX; lastMouseY = startY;
+        }, { passive: false });
+        
+        window.addEventListener('touchmove', (e) => { 
+            if (isDragging) { 
+                e.preventDefault(); 
+                const tx = e.touches[0].clientX;
+                const ty = e.touches[0].clientY;
+                offsetX = initialOffsetX + (tx - startX);
+                offsetY = initialOffsetY + (ty - startY);
+                
+                velocityX = tx - lastMouseX;
+                velocityY = ty - lastMouseY;
+                lastMouseX = tx;
+                lastMouseY = ty;
+            } 
+        }, { passive: false });
+        
+        window.addEventListener('touchend', () => isDragging = false);
+
+        function physicsLoop() {
+            const ballHeight = ballWidth;
+            
+            // Define strict padded boundaries inside the 1200px center container
+            const cLeft = getContainerLeft();
+            const cWidth = getContainerWidth();
+            
+            const minX = cLeft + sidePadding;
+            const maxX = cLeft + cWidth - sidePadding - ballWidth;
+            const minY = sidePadding;
+            const maxY = window.innerHeight - bottomPadding - ballHeight;
+
+            if (!isDragging) {
+                // Gravity
+                velocityY += 0.8;
+                
+                // Air resistance
+                velocityX *= 0.99;
+                velocityY *= 0.99;
+                
+                offsetX += velocityX;
+                offsetY += velocityY;
+                
+                let hitWall = false;
+
+                // Floor / Ceiling Bounce
+                if (offsetY > maxY) {
+                    offsetY = maxY;
+                    velocityY *= -0.75;
+                    velocityX *= 0.9; // friction on ground
+                    if (Math.abs(velocityY) > 2) hitWall = true;
+                } else if (offsetY < minY) {
+                    offsetY = minY;
+                    velocityY *= -0.8;
+                    if (Math.abs(velocityY) > 2) hitWall = true;
+                }
+
+                // Wall Bounce (Equal sides inside the content boundary)
+                if (offsetX < minX) {
+                    offsetX = minX;
+                    velocityX *= -0.8;
+                    if (Math.abs(velocityX) > 2) hitWall = true;
+                } else if (offsetX > maxX) {
+                    offsetX = maxX;
+                    velocityX *= -0.8;
+                    if (Math.abs(velocityX) > 2) hitWall = true;
+                }
+
+                if (hitWall) {
+                    cycleBigBallColor();
+                    if (window.createSparks) {
+                        window.createSparks(offsetX + ballWidth/2, offsetY + ballHeight/2);
+                    }
+                }
+            } else {
+                // Clamp position while dragging so you can't push it out of bounds
+                if (offsetX < minX) offsetX = minX;
+                if (offsetX > maxX) offsetX = maxX;
+                if (offsetY < minY) offsetY = minY;
+                if (offsetY > maxY) offsetY = maxY;
+            }
+
+            // Update DOM
+            wrapper.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            
+            // Spin ball based on X velocity
+            if (!isDragging) {
+                rotation += velocityX * 2;
+                ball.style.transform = `scale(1) rotate(${rotation}deg)`;
+            }
+            
+            requestAnimationFrame(physicsLoop);
         }
 
-        window.addEventListener('scroll', () => { currentScrollY = window.scrollY; updateBallPosition(); });
-        updateBallPosition();
+        // Initialize position initially
+        wrapper.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+
+        // Handle window resize dynamically
+        window.addEventListener('resize', () => {
+            const m = window.innerWidth < 768;
+            const sPad = m ? 16 : 32;
+            const bPad = 60;
+            const w = m ? 80 : 112;
+            
+            const cLeft = getContainerLeft();
+            const cWidth = getContainerWidth();
+            
+            const maxX = cLeft + cWidth - sPad - w;
+            const maxY = window.innerHeight - bPad - w;
+            
+            if (offsetX > maxX) offsetX = maxX;
+            if (offsetX < cLeft + sPad) offsetX = cLeft + sPad;
+            if (offsetY > maxY) offsetY = maxY;
+        });
+
+        // Start game loop
+        physicsLoop();
     });
 </script>
