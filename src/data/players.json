@@ -4,9 +4,10 @@
   { "name": "Anna Adil", "imgUrl": "adil.jpeg" },
   { "name": "Faizan Mir", "imgUrl": "faizan.jpeg" },
   { "name": "Hazim Mushtaq", "imgUrl": "hazim.jpeg" },
-  { "name": "Danish Javid", "imgUrl": "" },
-  { "name": "Yasir Hameed", "imgUrl": "" },
-  { "name": "Saqib Lefty", "imgUrl": "" },
+  { "name": "Danish Javid", "imgUrl": "danish.jpeg" },
+  { "name": "Yasir Hameed", "imgUrl": "yasir.jpeg" },
+  { "name": "Saqib Lefty", "imgUrl": "saqib.jpeg" },
   { "name": "Basit Peer", "imgUrl": "" },
-  { "name": "Shahid Pacer", "imgUrl": "" }
+  { "name": "Shahid Pacer", "imgUrl": "" },
+  { "name": "Manzoor Lone", "imgUrl": "manzoor.jpeg" }
 ]
