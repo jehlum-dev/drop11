@@ -17,18 +17,36 @@ const resolvePath = (p) => {
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16 relative z-10">
             {awards.map((a) => (
-                <div class="group cursor-pointer">
-                    <!-- Image with extremely smooth parallax/scale hover -->
-                    <div class="aspect-[4/5] md:aspect-square overflow-hidden mb-8 bg-black/50 rounded-xl border border-white/5">
-                        <img src={resolvePath(a.imgUrl)} alt={a.title} class="w-full h-full object-cover filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-1000 ease-apple" />
+                <div class="group relative flex flex-col w-full rounded-[14px] overflow-hidden cursor-pointer shadow-[0_8px_30px_rgb(0,0,0,0.8)] hover:-translate-y-2 transition-all duration-700 p-[2px]">
+                    
+                    <!-- Spinning Glowing Light -->
+                    <div class="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] animate-[spin_5s_linear_infinite] md:animate-[spin_8s_linear_infinite] z-0 pointer-events-none"
+                         style="background: conic-gradient(from 0deg, transparent 0deg, transparent 280deg, rgba(204,255,0,0.3) 330deg, #ccff00 360deg);">
                     </div>
-                    <!-- Details -->
-                    <div class="flex flex-col items-center text-center">
-                        <h3 class="text-2xl md:text-3xl font-serif tracking-tight text-brand-text mb-3">{a.title}</h3>
-                        <p class="text-xs font-bold tracking-[0.2em] uppercase text-brand-text-muted">{a.subtext}</p>
+                    
+                    <!-- Dark Inner Card -->
+                    <div class="relative z-10 w-full h-full bg-[#07070a] rounded-[12px] flex flex-col overflow-hidden">
+                        
+                        <div class="aspect-[4/5] md:aspect-square overflow-hidden bg-black/50 relative">
+                            <img src={resolvePath(a.imgUrl)} alt={a.title} class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-in-out" />
+                            
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-transparent to-black/30 z-20 pointer-events-none"></div>
+                        </div>
+                        
+                        <div class="relative z-30 flex flex-col items-center text-center p-6 md:p-8 bg-[#07070a] border-t border-white/5 flex-grow">
+                            <h3 class="text-2xl md:text-3xl font-serif tracking-widest text-brand-text mb-3 drop-shadow-[0_5px_5px_rgba(0,0,0,1)] group-hover:text-brand-accent transition-colors duration-500">{a.title}</h3>
+                            
+                            <div class="w-6 h-[1px] bg-white/20 mb-3 group-hover:bg-brand-accent group-hover:scale-150 transition-all duration-500"></div>
+                            
+                            <p class="text-[9px] font-bold tracking-[0.4em] uppercase text-white/50 drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">{a.subtext}</p>
+                        </div>
                     </div>
                 </div>
             ))}
         </div>
     </div>
 </section>
+
+<style>
+    /* Continuous Spin Border Handled via Tailwind */
+</style>

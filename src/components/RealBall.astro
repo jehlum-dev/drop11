@@ -47,7 +47,13 @@ const resolvePath = (p) => {
         let rotation = 0;
         
         let currentBigBallColor = 0;
+        let lastColorChange = 0;
+        
         function cycleBigBallColor() {
+            const now = Date.now();
+            if (now - lastColorChange < 200) return; // Prevent rapid flickering on floor settling
+            lastColorChange = now;
+            
             currentBigBallColor = (currentBigBallColor + 1) % 3;
             red.style.opacity = currentBigBallColor === 0 ? '1' : '0';
             pink.style.opacity = currentBigBallColor === 1 ? '1' : '0';
