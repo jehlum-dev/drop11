@@ -2,22 +2,29 @@
 import players from '../data/players.json';
 import PlayerCard from './PlayerCard.astro';
 
-// Shuffle the players array to display in a random order
 const shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
 ---
-<section id="roster" class="py-24 md:py-32 overflow-hidden border-b border-black/10">
-    <div class="px-6 md:px-12 max-w-[1400px] mx-auto">
-        <div class="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
+<section id="squad" class="py-20 md:py-32 border-b border-stroke">
+    <div class="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-10 lg:px-12">
+
+        <!-- Header -->
+        <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 md:mb-16">
             <div>
-                <span class="text-brand-accent font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Our Lineup</span>
-                <h2 class="text-5xl md:text-7xl font-serif italic tracking-tight text-brand-text">Our Squad</h2>
+                <span class="text-lime text-[11px] font-semibold tracking-[0.25em] uppercase block mb-2">The Lineup</span>
+                <h2 class="font-display font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight text-txt">Our Squad</h2>
+            </div>
+            <div class="flex items-center gap-2 pb-1">
+                <span class="w-2 h-2 rounded-full bg-lime animate-pulse"></span>
+                <span class="text-xs text-txt-2">{shuffledPlayers.length} players</span>
             </div>
         </div>
-        
-        <!-- Elegant, robust Grid layout that works flawlessly on PC and Mobile -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 lg:gap-12">
-            {shuffledPlayers.map((p) => (
-                <PlayerCard name={p.name} imgUrl={p.imgUrl} />
+
+        <!-- Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 stagger">
+            {shuffledPlayers.map((p, i) => (
+                <div class="reveal" style={`--i:${i}`}>
+                    <PlayerCard name={p.name} imgUrl={p.imgUrl} index={i} />
+                </div>
             ))}
         </div>
     </div>

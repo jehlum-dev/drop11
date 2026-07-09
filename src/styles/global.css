@@ -1,37 +1,134 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-bg: transparent;
-  --color-brand-surface: rgba(10, 10, 15, 0.7); 
-  --color-brand-text: #FFFFFF; 
-  --color-brand-text-muted: #9CA3AF;
-  --color-brand-accent: #38BDF8; /* Electric Space Blue */
+  --color-bg: #050507;
+  --color-surface: #0c0c10;
+  --color-elevated: #111116;
+  --color-lime: #ccff00;
+  --color-lime-dim: rgba(204, 255, 0, 0.10);
+  --color-txt: #f0f0f0;
+  --color-txt-2: #888888;
+  --color-txt-3: #444444;
+  --color-stroke: rgba(255, 255, 255, 0.07);
+  --color-stroke-2: rgba(255, 255, 255, 0.12);
+  --color-won: #34d399;
+  --color-lost: #f87171;
 
-  --font-sans: "Inter", "Helvetica Neue", sans-serif;
-  --font-serif: "Playfair Display", "Georgia", serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
 }
 
-html, body {
-  background-color: #020204; /* Absolute deep space void */
-  color: var(--color-brand-text);
-  font-family: var(--font-sans);
+/* ── Base ─────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
+}
+
+body {
+  /* Rug pattern fills the entire body background */
+  background-color: #2a0a0a;
+  background-size: 500px auto;
+  background-repeat: repeat;
+  background-position: center top;
+  color: var(--color-txt);
+  font-family: var(--font-body);
   overflow-x: hidden;
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: #000;
+}
+
+/* ── The content panel that sits on top of the rug ── */
+.content-panel {
+  max-width: 1200px;
+  /* On mobile, leave margin only on the sides */
+  width: calc(100% - 24px);
+  margin: 0 auto;
+  background: var(--color-bg);
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+/* On wide screens, snap fully or keep it straight */
+@media (min-width: 1240px) {
+  .content-panel {
+    width: 100%;
+    margin: 0 auto;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* ── Scroll reveal ────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.stagger > .reveal { transition-delay: calc(var(--i, 0) * 60ms); }
+
+/* ── Spinning border card ─────────────────────────── */
+.glow-card {
+  position: relative;
+  padding: 1.5px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 300deg,
+    rgba(204, 255, 0, 0.25) 340deg,
+    #ccff00 360deg
+  );
+  animation: spinBorder 6s linear infinite;
+  z-index: 0;
+}
+
+.glow-card:hover::before {
+  animation-duration: 3s;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 270deg,
+    rgba(204, 255, 0, 0.4) 320deg,
+    #ccff00 360deg
+  );
+}
+
+.glow-card-inner {
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+  border-radius: 14.5px;
+  overflow: hidden;
   width: 100%;
+  height: 100%;
 }
 
-/* World-class Easing Functions */
-.ease-apple {
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+@keyframes spinBorder {
+  to { transform: rotate(360deg); }
 }
 
-/* Hide scrollbar for unique horizontal scrolling sections */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+/* ── Utility ──────────────────────────────────────── */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

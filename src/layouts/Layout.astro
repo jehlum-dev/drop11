@@ -1,10 +1,13 @@
 ---
 import '../styles/global.css';
-const { 
-    title = "Drop 11 | Deep Space Edition",
-    description = "We are a simple cricket team. Experience the premium deep space aesthetic of Drop 11 Cricket Club."
+const {
+    title = "Drop 11 — Cricket Club",
+    description = "Drop 11 Cricket Club. We are a simple cricket team."
 } = Astro.props;
 const ogImage = "/og-image.jpg";
+
+// Ensure the rug image uses the correct base path for production
+const rugImg = import.meta.env.BASE_URL + 'rug-pattern.jpg';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -14,23 +17,38 @@ const ogImage = "/og-image.jpg";
     <title>{title}</title>
     <meta name="description" content={description}>
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, Astro.url)} />
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={Astro.url} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.url)} />
-    
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
-<body class="font-display overflow-x-hidden selection:bg-[#ccff00] selection:text-black leading-none bg-[#020204]">
-    <slot />
+<body class="selection:bg-lime selection:text-black" style={`background-image: url('${rugImg.replace('//', '/')}');`}>
+    <!-- The rug pattern is applied to the body. This panel contains all the actual site content with a black background. -->
+    <div class="content-panel">
+        <slot />
+    </div>
+
+    <script is:inline>
+        const obs = new IntersectionObserver(
+            entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }),
+            { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
+        );
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        });
+    </script>
 </body>
 </html>

@@ -1,65 +1,97 @@
 ---
 ---
----
-<nav class="sticky top-0 z-[90] bg-brand-bg/95 backdrop-blur-md border-b border-black/5 transition-all">
-    <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between h-20 items-center">
-        <!-- Logo -->
-        <a href="#" class="font-serif italic font-bold text-2xl tracking-tighter text-brand-text hover:opacity-80 transition-opacity">
-            Drop 11
-        </a>
-        
-        <!-- Desktop Links -->
-        <div class="hidden md:flex items-center space-x-12">
-            <a href="#roster" class="text-xs font-bold uppercase tracking-widest text-brand-text hover:text-brand-accent transition-colors duration-300 ease-apple">Squad</a>
-            <a href="#fixtures" class="text-xs font-bold uppercase tracking-widest text-brand-text hover:text-brand-accent transition-colors duration-300 ease-apple">Fixtures</a>
-            <a href="#honours" class="text-xs font-bold uppercase tracking-widest text-brand-text hover:text-brand-accent transition-colors duration-300 ease-apple">Honours</a>
-        </div>
-        
-        <!-- Mobile Menu Button (Hamburger) -->
-        <div class="md:hidden flex items-center">
-            <button id="mobile-menu-btn" class="text-brand-text focus:outline-none p-2" aria-label="Toggle menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+<nav id="site-nav" class="sticky top-0 z-[90] transition-all duration-300 border-b border-transparent">
+    <div class="w-full px-5 sm:px-8 md:px-10 lg:px-12">
+        <div class="flex items-center justify-between h-16 md:h-[70px]">
+
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 shrink-0 group">
+                <span class="w-3 h-3 rounded-full bg-lime group-hover:shadow-[0_0_12px_rgba(204,255,0,0.6)] transition-shadow duration-300"></span>
+                <span class="font-display text-lg md:text-xl font-bold text-txt tracking-tight">DROP <span class="text-lime">11</span></span>
+            </a>
+
+            <!-- Desktop -->
+            <div class="hidden md:flex items-center gap-1">
+                <a href="#squad" class="px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-txt-2 hover:text-txt rounded-md hover:bg-white/[0.04] transition-all duration-200">Squad</a>
+                <a href="#fixtures" class="px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-txt-2 hover:text-txt rounded-md hover:bg-white/[0.04] transition-all duration-200">Fixtures</a>
+                <a href="#honours" class="px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-txt-2 hover:text-txt rounded-md hover:bg-white/[0.04] transition-all duration-200">Honours</a>
+            </div>
+
+            <!-- Mobile burger -->
+            <button id="mob-btn" class="md:hidden relative z-[100] w-9 h-9 flex items-center justify-center" aria-label="Menu">
+                <svg id="burger-svg" class="w-5 h-5 text-txt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line id="bline1" x1="4" y1="8" x2="20" y2="8" class="transition-all duration-300 origin-center" />
+                    <line id="bline2" x1="4" y1="16" x2="20" y2="16" class="transition-all duration-300 origin-center" />
                 </svg>
             </button>
         </div>
     </div>
-
-    <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="md:hidden hidden bg-brand-bg border-b border-black/5 absolute w-full left-0 shadow-2xl transition-all">
-        <div class="px-6 py-8 flex flex-col space-y-8 text-center">
-            <a href="#roster" class="mobile-link text-sm font-bold uppercase tracking-[0.2em] text-brand-text">Squad</a>
-            <a href="#fixtures" class="mobile-link text-sm font-bold uppercase tracking-[0.2em] text-brand-text">Fixtures</a>
-            <a href="#honours" class="mobile-link text-sm font-bold uppercase tracking-[0.2em] text-brand-text">Honours</a>
-        </div>
-    </div>
 </nav>
 
-<script is:inline>
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    const links = document.querySelectorAll('.mobile-link');
-    const path = document.getElementById('menu-icon-path');
-    
-    let isOpen = false;
+<!-- Mobile overlay -->
+<div id="mob-menu" class="fixed inset-0 z-[89] bg-bg/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden">
+    <a href="#squad" class="mob-link text-3xl font-display font-bold text-txt hover:text-lime transition-colors">Squad</a>
+    <a href="#fixtures" class="mob-link text-3xl font-display font-bold text-txt hover:text-lime transition-colors">Fixtures</a>
+    <a href="#honours" class="mob-link text-3xl font-display font-bold text-txt hover:text-lime transition-colors">Honours</a>
+    <div class="mt-4 w-6 h-px bg-stroke-2"></div>
+    <span class="text-[10px] font-medium tracking-[0.3em] uppercase text-txt-3">Drop 11 Cricket Club</span>
+</div>
 
-    function toggleMenu() {
-        isOpen = !isOpen;
-        if (isOpen) {
-            menu.classList.remove('hidden');
-            path.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // X icon
+<script is:inline>
+(() => {
+    const btn = document.getElementById('mob-btn');
+    const menu = document.getElementById('mob-menu');
+    const l1 = document.getElementById('bline1');
+    const l2 = document.getElementById('bline2');
+    const nav = document.getElementById('site-nav');
+    const mlinks = document.querySelectorAll('.mob-link');
+    let open = false;
+
+    function toggle() {
+        open = !open;
+        if (open) {
+            menu.classList.remove('opacity-0','pointer-events-none');
+            menu.classList.add('opacity-100','pointer-events-auto');
+            // Proper X: rotate lines from center of the SVG
+            l1.setAttribute('x1','5'); l1.setAttribute('y1','5');
+            l1.setAttribute('x2','19'); l1.setAttribute('y2','19');
+            l2.setAttribute('x1','5'); l2.setAttribute('y1','19');
+            l2.setAttribute('x2','19'); l2.setAttribute('y2','5');
+            document.body.style.overflow = 'hidden';
         } else {
-            menu.classList.add('hidden');
-            path.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Hamburger icon
+            menu.classList.add('opacity-0','pointer-events-none');
+            menu.classList.remove('opacity-100','pointer-events-auto');
+            l1.setAttribute('x1','4'); l1.setAttribute('y1','8');
+            l1.setAttribute('x2','20'); l1.setAttribute('y2','8');
+            l2.setAttribute('x1','4'); l2.setAttribute('y1','16');
+            l2.setAttribute('x2','20'); l2.setAttribute('y2','16');
+            document.body.style.overflow = '';
         }
     }
 
-    if (btn && menu) {
-        btn.addEventListener('click', toggleMenu);
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                if(isOpen) toggleMenu();
+    btn?.addEventListener('click', toggle);
+    mlinks.forEach(l => l.addEventListener('click', () => { if(open) toggle(); }));
+
+    // Frosted nav on scroll
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                if (window.scrollY > 40) {
+                    nav.style.background = 'rgba(5,5,7,0.85)';
+                    nav.style.backdropFilter = 'blur(16px) saturate(1.4)';
+                    nav.style.webkitBackdropFilter = 'blur(16px) saturate(1.4)';
+                    nav.style.borderBottomColor = 'rgba(255,255,255,0.05)';
+                } else {
+                    nav.style.background = 'transparent';
+                    nav.style.backdropFilter = 'none';
+                    nav.style.webkitBackdropFilter = 'none';
+                    nav.style.borderBottomColor = 'transparent';
+                }
+                ticking = false;
             });
-        });
-    }
+            ticking = true;
+        }
+    }, { passive: true });
+})();
 </script>

@@ -1,0 +1,201 @@
+---
+/**
+ * Decorative side borders that frame the 1200px content area.
+ * Visible line at the boundary + Kashmiri-inspired geometric pattern in the margins.
+ * Only shows on screens wider than ~1300px.
+ */
+---
+
+<!-- Left border strip -->
+<div class="side-border side-border--left" aria-hidden="true">
+    <div class="side-border__line"></div>
+    <div class="side-border__pattern">
+        <svg class="side-border__svg" viewBox="0 0 60 120" preserveAspectRatio="none">
+            <defs>
+                <pattern id="kashmiri-left" x="0" y="0" width="60" height="120" patternUnits="userSpaceOnUse">
+                    <!-- Central diamond -->
+                    <path d="M30 10 L50 60 L30 110 L10 60 Z" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+                    <!-- Inner diamond -->
+                    <path d="M30 25 L42 60 L30 95 L18 60 Z" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.35"/>
+                    <!-- Center dot -->
+                    <circle cx="30" cy="60" r="2" fill="currentColor" opacity="0.3"/>
+                    <!-- Corner details - paisley-inspired curves -->
+                    <path d="M30 10 Q38 20 36 35" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.25"/>
+                    <path d="M30 10 Q22 20 24 35" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.25"/>
+                    <path d="M30 110 Q38 100 36 85" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.25"/>
+                    <path d="M30 110 Q22 100 24 85" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.25"/>
+                    <!-- Top/bottom connecting motifs -->
+                    <line x1="20" y1="0" x2="40" y2="0" stroke="currentColor" stroke-width="0.3" opacity="0.15"/>
+                    <line x1="20" y1="120" x2="40" y2="120" stroke="currentColor" stroke-width="0.3" opacity="0.15"/>
+                    <!-- Tiny accent dots -->
+                    <circle cx="30" cy="3" r="1" fill="currentColor" opacity="0.2"/>
+                    <circle cx="30" cy="117" r="1" fill="currentColor" opacity="0.2"/>
+                    <circle cx="10" cy="60" r="1" fill="currentColor" opacity="0.2"/>
+                    <circle cx="50" cy="60" r="1" fill="currentColor" opacity="0.2"/>
+                </pattern>
+            </defs>
+            <rect width="60" height="100%" fill="url(#kashmiri-left)"/>
+        </svg>
+    </div>
+    <!-- Faint calligraphy watermark -->
+    <div class="side-border__calligraphy">
+        <span>تیر</span>
+        <span>نیم</span>
+        <span>کش</span>
+        <span>◆</span>
+        <span>تیر</span>
+        <span>نیم</span>
+        <span>کش</span>
+        <span>◆</span>
+        <span>تیر</span>
+        <span>نیم</span>
+        <span>کش</span>
+        <span>◆</span>
+    </div>
+</div>
+
+<!-- Right border strip -->
+<div class="side-border side-border--right" aria-hidden="true">
+    <div class="side-border__line"></div>
+    <div class="side-border__pattern">
+        <svg class="side-border__svg" viewBox="0 0 60 120" preserveAspectRatio="none">
+            <defs>
+                <pattern id="kashmiri-right" x="0" y="0" width="60" height="120" patternUnits="userSpaceOnUse">
+                    <path d="M30 10 L50 60 L30 110 L10 60 Z" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+                    <path d="M30 25 L42 60 L30 95 L18 60 Z" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.35"/>
+                    <circle cx="30" cy="60" r="2" fill="currentColor" opacity="0.3"/>
+                    <path d="M30 10 Q38 20 36 35" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.25"/>
+                    <path d="M30 10 Q22 20 24 35" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.25"/>
+                    <path d="M30 110 Q38 100 36 85" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.25"/>
+                    <path d="M30 110 Q22 100 24 85" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.25"/>
+                    <line x1="20" y1="0" x2="40" y2="0" stroke="currentColor" stroke-width="0.3" opacity="0.15"/>
+                    <line x1="20" y1="120" x2="40" y2="120" stroke="currentColor" stroke-width="0.3" opacity="0.15"/>
+                    <circle cx="30" cy="3" r="1" fill="currentColor" opacity="0.2"/>
+                    <circle cx="30" cy="117" r="1" fill="currentColor" opacity="0.2"/>
+                    <circle cx="10" cy="60" r="1" fill="currentColor" opacity="0.2"/>
+                    <circle cx="50" cy="60" r="1" fill="currentColor" opacity="0.2"/>
+                </pattern>
+            </defs>
+            <rect width="60" height="100%" fill="url(#kashmiri-right)"/>
+        </svg>
+    </div>
+    <div class="side-border__calligraphy">
+        <span>تیر</span>
+        <span>نیم</span>
+        <span>کش</span>
+        <span>◆</span>
+        <span>تیر</span>
+        <span>نیم</span>
+        <span>کش</span>
+        <span>◆</span>
+        <span>تیر</span>
+        <span>نیم</span>
+        <span>کش</span>
+        <span>◆</span>
+    </div>
+</div>
+
+<style>
+    /* Only show on wide screens where there's actual margin space */
+    .side-border {
+        display: none;
+    }
+
+    @media (min-width: 1300px) {
+        .side-border {
+            display: block;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: calc((100vw - 1200px) / 2);
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .side-border--left {
+            left: 0;
+        }
+
+        .side-border--right {
+            right: 0;
+        }
+
+        /* The glowing boundary line */
+        .side-border__line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(204, 255, 0, 0.08) 10%,
+                rgba(204, 255, 0, 0.15) 30%,
+                rgba(204, 255, 0, 0.15) 70%,
+                rgba(204, 255, 0, 0.08) 90%,
+                transparent 100%
+            );
+        }
+
+        .side-border--left .side-border__line {
+            right: 0;
+        }
+
+        .side-border--right .side-border__line {
+            left: 0;
+        }
+
+        /* Geometric pattern area */
+        .side-border__pattern {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            color: rgba(204, 255, 0, 0.12);
+        }
+
+        .side-border--left .side-border__pattern {
+            right: 12px;
+        }
+
+        .side-border--right .side-border__pattern {
+            left: 12px;
+        }
+
+        .side-border__svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Calligraphy watermark behind the pattern */
+        .side-border__calligraphy {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            opacity: 0.03;
+            color: #ccff00;
+            font-size: 2rem;
+            direction: rtl;
+            writing-mode: vertical-rl;
+            letter-spacing: 0.3em;
+        }
+
+        .side-border--left .side-border__calligraphy {
+            padding-right: 80px;
+        }
+        .side-border--right .side-border__calligraphy {
+            padding-left: 80px;
+        }
+
+        .side-border__calligraphy span {
+            white-space: nowrap;
+        }
+    }
+</style>

@@ -1,45 +1,60 @@
 ---
-const { name, imgUrl } = Astro.props;
-// Ensure paths resolve correctly on GitHub Pages
+const { name, imgUrl, index } = Astro.props;
 const resolvePath = (p) => {
     if (!p) return 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
     if (p.startsWith('http')) return p;
     const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     return `${base}/${p.replace(/^\//, '')}`;
 };
+
+const parts = name.split(' ');
+const firstName = parts[0];
+const lastName = parts.slice(1).join(' ');
+const num = String(index + 1).padStart(2, '0');
 ---
-<div class="group relative flex flex-col w-full rounded-[14px] overflow-hidden cursor-pointer shadow-[0_8px_30px_rgb(0,0,0,0.8)] hover:-translate-y-2 transition-all duration-700 p-[2px]">
-    
-    <!-- Spinning Glowing Light (Runs continuously, works on all devices) -->
-    <div class="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] animate-[spin_5s_linear_infinite] md:animate-[spin_8s_linear_infinite] z-0 pointer-events-none"
-         style="background: conic-gradient(from 0deg, transparent 0deg, transparent 280deg, rgba(204,255,0,0.3) 330deg, #ccff00 360deg);">
-    </div>
-    
-    <!-- Dark Inner Card (Leaves exactly 2px for the spinning border to show) -->
-    <div class="relative z-10 w-full h-full bg-[#07070a] rounded-[12px] flex flex-col overflow-hidden">
-        
-        <!-- Player Image Wrapper -->
-        <div class="relative w-full aspect-[4/5] bg-black overflow-hidden">
-            <img src={resolvePath(imgUrl)} 
-                 alt={name} 
-                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-in-out" />
-            
-            <div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-transparent to-black/30 z-20 pointer-events-none"></div>
+<div class="group glow-card hover:-translate-y-1.5 transition-transform duration-500 cursor-pointer">
+    <div class="glow-card-inner flex flex-col">
+
+        <!-- Photo container -->
+        <div class="relative aspect-[3/4] overflow-hidden bg-black">
+            <img
+                src={resolvePath(imgUrl)}
+                alt={name}
+                class="w-full h-full object-cover object-top group-hover:scale-[1.06] transition-transform duration-700 ease-out"
+                loading="lazy"
+            />
+
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/20 to-transparent pointer-events-none"></div>
+
+            <!-- Player number - big, faded, in the corner -->
+            <div class="absolute top-3 right-3 z-10">
+                <span class="font-display font-bold text-[2rem] sm:text-[2.5rem] leading-none text-white/[0.08] group-hover:text-lime/20 transition-colors duration-500">
+                    {num}
+                </span>
+            </div>
+
+            <!-- Name overlay at bottom of image -->
+            <div class="absolute bottom-0 left-0 right-0 z-10 px-4 pb-4 sm:px-5 sm:pb-5">
+                <h3 class="font-display font-bold text-lg sm:text-xl md:text-2xl text-white leading-tight tracking-tight group-hover:text-lime transition-colors duration-300">
+                    {firstName}
+                </h3>
+                {lastName && (
+                    <span class="text-[11px] sm:text-xs font-medium tracking-[0.12em] uppercase text-white/50 mt-0.5 block">
+                        {lastName}
+                    </span>
+                )}
+            </div>
         </div>
-        
-        <!-- Player Info -->
-        <div class="relative z-30 p-6 md:p-8 bg-[#07070a] flex flex-col items-center text-center border-t border-white/5">
-            <h3 class="text-2xl md:text-3xl font-serif tracking-widest text-brand-text mb-3 drop-shadow-[0_5px_5px_rgba(0,0,0,1)] group-hover:text-brand-accent transition-colors duration-500">
-                {name}
-            </h3>
-            
-            <div class="w-6 h-[1px] bg-white/20 mb-3 group-hover:bg-brand-accent group-hover:scale-150 transition-all duration-500"></div>
-            
-            <span class="text-[9px] font-bold uppercase tracking-[0.4em] text-white/50 drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">Squad Member</span>
+
+        <!-- Bottom bar with role + action -->
+        <div class="px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-between border-t border-stroke bg-surface">
+            <span class="text-[9px] font-semibold tracking-[0.2em] uppercase text-txt-3 group-hover:text-txt-2 transition-colors duration-300">Squad Member</span>
+            <div class="w-6 h-6 rounded-full border border-stroke-2 flex items-center justify-center group-hover:bg-lime group-hover:border-lime transition-all duration-300">
+                <svg class="w-2.5 h-2.5 text-txt-3 group-hover:text-black transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/>
+                </svg>
+            </div>
         </div>
     </div>
 </div>
-
-<style>
-    /* No complex masks or clipping required. Using Tailwind's animate-[spin_4s_linear_infinite] */
-</style>

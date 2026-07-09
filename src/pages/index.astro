@@ -6,164 +6,46 @@ import FixturesSection from '../components/FixturesSection.astro';
 import HonoursSection from '../components/HonoursSection.astro';
 import RealBall from '../components/RealBall.astro';
 import Navbar from '../components/Navbar.astro';
+import SideBorders from '../components/SideBorders.astro';
 ---
-<Layout title="Drop 11 | Deep Space Edition">
-    
-    <!-- Dynamic Deep Space Canvas -->
-    <canvas id="deep-space-canvas" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none"></canvas>
-    
-    <!-- Physics Ball (Fixed to viewport) -->
+<Layout title="Drop 11 — Cricket Club">
+
+    <!-- Decorative side borders -->
+    <SideBorders />
+
+    <!-- Physics Ball -->
     <RealBall />
 
-    <!-- Central Content Wrapper (Translucent so space shows through) -->
-    <div class="max-w-[1200px] mx-auto min-h-screen relative border-l border-r border-white/5 bg-brand-surface backdrop-blur-sm">
-
-    <!-- Navigation (constrained to the central wrapper) -->
+    <!-- Navigation -->
     <Navbar />
 
-    <main class="pt-20">
+    <!-- Main Content -->
+    <main>
         <HeroSection />
         <RosterSection />
         <FixturesSection />
         <HonoursSection />
     </main>
 
-    <footer class="py-12 border-t border-white/10 text-center relative z-10">
-        <p class="text-xs font-bold uppercase tracking-[0.2em] opacity-50 text-white">© 2026 Drop 11 Cricket Club</p>
+    <!-- Footer -->
+    <footer class="border-t border-stroke">
+        <div class="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-10 lg:px-12 py-10 md:py-14">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-lime"></span>
+                    <span class="font-display text-lg font-bold text-txt">DROP <span class="text-lime">11</span></span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="#squad" class="text-[11px] font-semibold uppercase tracking-[0.14em] text-txt-2 hover:text-txt transition-colors">Squad</a>
+                    <a href="#fixtures" class="text-[11px] font-semibold uppercase tracking-[0.14em] text-txt-2 hover:text-txt transition-colors">Fixtures</a>
+                    <a href="#honours" class="text-[11px] font-semibold uppercase tracking-[0.14em] text-txt-2 hover:text-txt transition-colors">Honours</a>
+                </div>
+            </div>
+            <div class="h-px bg-stroke mb-6"></div>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                <p class="text-[10px] font-medium tracking-[0.15em] uppercase text-txt-3">© 2026 Drop 11 Cricket Club</p>
+                <p class="text-[10px] font-medium tracking-[0.15em] uppercase text-txt-3">Shatgund, Kashmir</p>
+            </div>
+        </div>
     </footer>
-    
-    </div> <!-- End Central Wrapper -->
-
-    <script is:inline>
-        const canvas = document.getElementById('deep-space-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-
-        function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        const stars = [];
-        for (let i = 0; i < 400; i++) {
-            stars.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                size: Math.random() * 1.5,
-                speed: Math.random() * 0.5 + 0.1,
-                opacity: Math.random() * 0.8 + 0.2
-            });
-        }
-
-        const shootingStars = [];
-        const sparks = [];
-
-        window.createSparks = function(x, y) {
-            for (let i = 0; i < 20; i++) {
-                sparks.push({
-                    x: x,
-                    y: y,
-                    vx: (Math.random() - 0.5) * 15,
-                    vy: (Math.random() - 0.5) * 15,
-                    life: 1.0,
-                    color: Math.random() > 0.5 ? '#e32636' : '#ffb6c1'
-                });
-            }
-        };
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            
-            // Get ball position for gravity effect
-            const ballWrapper = document.getElementById('rolling-ball-wrapper');
-            let ballX = -1000, ballY = -1000;
-            if (ballWrapper) {
-                const rect = ballWrapper.getBoundingClientRect();
-                ballX = rect.left + rect.width / 2;
-                ballY = rect.top + rect.height / 2;
-            }
-
-            // Regular stars with gravity distortion
-            for (let star of stars) {
-                star.y -= star.speed;
-                if (star.y < 0) {
-                    star.y = height;
-                    star.x = Math.random() * width;
-                }
-                
-                let drawX = star.x;
-                let drawY = star.y;
-                
-                const dx = ballX - star.x;
-                const dy = ballY - star.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
-                
-                // Black hole gravity effect
-                if (dist < 250 && dist > 0) {
-                    const pull = Math.pow((250 - dist) / 250, 2) * 40; 
-                    drawX += (dx / dist) * pull;
-                    drawY += (dy / dist) * pull;
-                    ctx.fillStyle = `rgba(255, 200, 200, ${star.opacity + 0.3})`; // Glow when sucked
-                } else {
-                    ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-                }
-
-                ctx.beginPath();
-                ctx.arc(drawX, drawY, star.size + (dist < 250 ? 0.5 : 0), 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            // Shooting star spawn
-            if (Math.random() < 0.01) {
-                shootingStars.push({
-                    x: Math.random() * width,
-                    y: 0,
-                    length: Math.random() * 80 + 20,
-                    speed: Math.random() * 10 + 5,
-                    opacity: 1
-                });
-            }
-
-            for (let i = shootingStars.length - 1; i >= 0; i--) {
-                let ss = shootingStars[i];
-                ss.x -= ss.speed;
-                ss.y += ss.speed;
-                ss.opacity -= 0.02;
-
-                ctx.strokeStyle = `rgba(255, 255, 255, ${Math.max(0, ss.opacity)})`;
-                ctx.lineWidth = 1.5;
-                ctx.beginPath();
-                ctx.moveTo(ss.x, ss.y);
-                ctx.lineTo(ss.x + ss.length, ss.y - ss.length);
-                ctx.stroke();
-
-                if (ss.opacity <= 0) shootingStars.splice(i, 1);
-            }
-            
-            // Sparks from ball bounces
-            for (let i = sparks.length - 1; i >= 0; i--) {
-                let sp = sparks[i];
-                sp.x += sp.vx;
-                sp.y += sp.vy;
-                sp.vy += 0.5; // gravity
-                sp.life -= 0.02;
-                
-                ctx.fillStyle = sp.color;
-                ctx.globalAlpha = Math.max(0, sp.life);
-                ctx.beginPath();
-                ctx.arc(sp.x, sp.y, 2, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.globalAlpha = 1.0;
-                
-                if (sp.life <= 0) sparks.splice(i, 1);
-            }
-
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
 </Layout>
