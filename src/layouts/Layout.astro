@@ -52,8 +52,8 @@ const baseUrl = import.meta.env.BASE_URL;
         ];
         // Pick a random pattern on every refresh
         const randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
-        // Construct the full URL keeping base URL in mind
-        const imgUrl = (baseUrl + randomPattern).replace(/\/\//g, '/');
+        // Construct the full URL keeping base URL in mind. Ensure there is a slash between them.
+        const imgUrl = (baseUrl + '/' + randomPattern).replace(/\/\/+/g, '/');
         document.body.style.backgroundImage = `url('${imgUrl}')`;
 
         // Scroll reveal logic

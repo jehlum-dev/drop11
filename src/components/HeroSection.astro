@@ -1,67 +1,61 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const heroImgUrl = `${base}/hero-art.jpg`;
 ---
-<header class="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center overflow-hidden border-b border-stroke" id="hero">
+<header class="relative w-full pt-16 pb-12 sm:pt-20 sm:pb-16 md:pt-24 md:pb-20 border-b border-stroke overflow-hidden" id="hero">
+    <div class="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-10 lg:px-12 w-full relative z-10">
+        
+        <div class="flex flex-col gap-8 md:gap-12">
+            
+            <!-- Top typography section -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                <div class="flex flex-col">
+                    <div class="hero-el flex items-center gap-3 mb-4" style="--d:80ms">
+                        <span class="w-8 h-px bg-lime"></span>
+                        <span class="text-[10px] font-semibold tracking-[0.3em] uppercase text-txt-2">Cricket Club</span>
+                    </div>
 
-    <!-- Ambient lime glow -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute top-[5%] right-[-8%] w-[55vw] h-[55vw] max-w-[650px] max-h-[650px] rounded-full" style="background: radial-gradient(circle, rgba(204,255,0,0.05) 0%, transparent 65%);"></div>
-        <div class="absolute bottom-[-10%] left-[-15%] w-[45vw] h-[45vw] max-w-[500px] max-h-[500px] rounded-full" style="background: radial-gradient(circle, rgba(204,255,0,0.03) 0%, transparent 60%);"></div>
-    </div>
+                    <h1 class="hero-el" style="--d:0ms">
+                        <span class="block font-display font-bold text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[7.5rem] leading-[0.9] tracking-tight text-txt">
+                            DROP <span class="text-lime">11</span>
+                        </span>
+                    </h1>
 
-    <!-- Giant watermark -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
-        <span class="text-[30vw] md:text-[22vw] font-display font-bold text-white/[0.015] leading-none tracking-tighter whitespace-nowrap">DROP</span>
-    </div>
-
-    <!-- Content -->
-    <div class="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 md:px-10 lg:px-12 w-full pt-24 md:pt-0">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-
-            <!-- Brand column -->
-            <div class="flex flex-col">
-                <div class="hero-el flex items-center gap-3 mb-6" style="--d:80ms">
-                    <span class="w-8 h-px bg-lime"></span>
-                    <span class="text-[10px] font-semibold tracking-[0.3em] uppercase text-lime">Cricket Club</span>
+                    <p class="hero-el mt-6 text-[13px] font-medium tracking-[0.15em] uppercase text-txt-3 max-w-sm leading-relaxed" style="--d:200ms">
+                        A simple cricket team forged with passion and tradition.
+                    </p>
                 </div>
-
-                <h1 class="hero-el" style="--d:0ms">
-                    <span class="block font-display font-bold text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8rem] leading-[0.9] tracking-[-0.04em] text-txt">
-                        DROP
-                    </span>
-                    <span class="block font-display font-bold text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8rem] leading-[0.9] tracking-[-0.04em] text-lime drop-shadow-[0_0_40px_rgba(204,255,0,0.2)]">
-                        11
-                    </span>
-                </h1>
-
-                <p class="hero-el mt-8 text-[11px] font-medium tracking-[0.2em] uppercase text-txt-2" style="--d:200ms">
-                    We are a simple cricket team.
-                </p>
-
-                <div class="hero-el mt-10 flex items-center gap-4" style="--d:350ms">
-                    <a href="#squad" class="inline-flex items-center gap-2 px-5 py-2.5 bg-lime text-black text-[11px] font-bold uppercase tracking-[0.12em] rounded-full hover:shadow-[0_0_20px_rgba(204,255,0,0.3)] hover:scale-[1.03] transition-all duration-300">
+                
+                <div class="hero-el flex items-center gap-4" style="--d:350ms">
+                    <a href="#squad" class="inline-flex items-center gap-2 px-6 py-3.5 bg-txt text-bg text-[11px] font-bold uppercase tracking-[0.12em] rounded-full hover:bg-lime hover:text-black transition-all duration-300">
                         View Squad
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
                     </a>
                 </div>
             </div>
 
-            <!-- Poetry column -->
-            <div class="flex flex-col items-start lg:items-end" dir="rtl">
-                <div class="hero-el w-full lg:max-w-md" style="--d:300ms">
-                    <div class="glow-card">
-                        <div class="glow-card-inner p-6 sm:p-8 md:p-10">
-                            <span class="text-4xl text-lime/20 font-bold leading-none block mb-4">"</span>
-                            <p class="text-xl sm:text-2xl md:text-[1.7rem] text-txt leading-relaxed font-light mb-2" style="font-family: 'Noto Nastaliq Urdu', serif;">
-                                کوئی میرے دل سے پوچھے<br>
-                                <span class="text-lime">ترے تیر نیم کش کو</span>
-                            </p>
-                            <p class="text-base sm:text-lg text-txt-2 leading-relaxed mt-3 font-light" style="font-family: 'Noto Nastaliq Urdu', serif;">
-                                یہ خلش کہاں سے ہوتی جو جگر کے پار ہوتا
-                            </p>
-                        </div>
-                    </div>
+            <!-- Premium Hero Image & Poetry -->
+            <div class="hero-el relative w-full h-[50vh] md:h-[65vh] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl" style="--d:450ms">
+                
+                <img src={heroImgUrl} alt="Vintage Cricket Ball on Kashmiri Rug" class="w-full h-full object-cover" />
+                
+                <!-- Elegant gradient overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+
+                <!-- Poetry Card overlaying the image -->
+                <div class="absolute bottom-6 right-6 md:bottom-10 md:right-10 max-w-xs sm:max-w-md bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8" dir="rtl">
+                    <span class="text-3xl text-lime/50 font-serif leading-none block mb-2">"</span>
+                    <p class="text-xl sm:text-2xl text-white leading-relaxed font-light mb-1" style="font-family: 'Noto Nastaliq Urdu', serif;">
+                        کوئی میرے دل سے پوچھے<br>
+                        <span class="text-lime/90">ترے تیر نیم کش کو</span>
+                    </p>
+                    <p class="text-sm sm:text-base text-white/60 leading-relaxed mt-2 font-light" style="font-family: 'Noto Nastaliq Urdu', serif;">
+                        یہ خلش کہاں سے ہوتی جو جگر کے پار ہوتا
+                    </p>
                 </div>
+
             </div>
+
         </div>
     </div>
 </header>
