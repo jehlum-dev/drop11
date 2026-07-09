@@ -81,10 +81,12 @@
     btn?.addEventListener('click', toggle);
     mlinks.forEach(l => l.addEventListener('click', () => { if(open) toggle(); }));
 
-    // Theme toggle
+    // Theme toggle with localStorage
     const themeBtn = document.getElementById('theme-btn');
     themeBtn?.addEventListener('click', () => {
         document.body.classList.toggle('light-theme');
+        const isLight = document.body.classList.contains('light-theme');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
     // Frosted nav on scroll

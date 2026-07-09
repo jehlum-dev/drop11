@@ -35,6 +35,12 @@ const baseUrl = import.meta.env.BASE_URL;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
 <body class="selection:bg-lime selection:text-black">
+    <script is:inline>
+        // Apply theme early to prevent FOUC
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-theme');
+        }
+    </script>
     <!-- The rug pattern is applied to the body. This panel contains all the actual site content with a black background. -->
     <div class="content-panel">
         <slot />

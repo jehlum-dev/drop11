@@ -1,8 +1,6 @@
 ---
 import players from '../data/players.json';
 import PlayerCard from './PlayerCard.astro';
-
-const shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
 ---
 <section id="squad" class="py-20 md:py-32 border-b border-stroke">
     <div class="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-10 lg:px-12">
@@ -15,17 +13,31 @@ const shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
             </div>
             <div class="flex items-center gap-2 pb-1">
                 <span class="w-2 h-2 rounded-full bg-lime animate-pulse"></span>
-                <span class="text-xs text-txt-2">{shuffledPlayers.length} players</span>
+                <span class="text-xs text-txt-2">{players.length} players</span>
             </div>
         </div>
 
         <!-- Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-5 stagger">
-            {shuffledPlayers.map((p, i) => (
-                <div class="reveal" style={`--i:${i}`}>
+        <div id="roster-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-5 stagger">
+            {players.map((p, i) => (
+                <div class="reveal player-item" style={`--i:${i}`}>
                     <PlayerCard name={p.name} imgUrl={p.imgUrl} index={i} />
                 </div>
             ))}
         </div>
     </div>
 </section>
+
+<script is:inline>
+    // Shuffle the players on the client-side so it works on GitHub Pages static host
+    document.addEventListener("DOMContentLoaded", () => {
+        const grid = document.getElementById("roster-grid");
+        if (!grid) return;
+        const items = Array.from(grid.children);
+        // Fisher-Yates shuffle
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            grid.appendChild(items[j]); 
+        }
+    });
+</script>

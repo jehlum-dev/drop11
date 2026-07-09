@@ -57,9 +57,9 @@ body {
 /* ── The content panel that sits on top of the rug ── */
 .content-panel {
   max-width: 1200px;
-  /* On mobile, leave a very subtle margin so it doesn't squish content */
+  /* On mobile, leave a very subtle margin on the sides, but none on top/bottom */
   width: calc(100% - 12px);
-  margin: 6px auto;
+  margin: 0 auto;
   background: var(--color-bg);
   position: relative;
   z-index: 2;
