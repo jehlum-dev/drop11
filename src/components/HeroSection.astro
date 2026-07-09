@@ -1,73 +1,52 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const heroImgUrl = `${base}/hero-art.jpg`;
 ---
-<header class="relative w-full pt-16 pb-12 sm:pt-20 sm:pb-16 md:pt-24 md:pb-20 border-b border-stroke overflow-hidden" id="hero">
-    <div class="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-10 lg:px-12 w-full relative z-10">
+<header class="relative w-full min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden border-b border-stroke" id="hero">
+    
+    <!-- Grand Central Typography -->
+    <div class="relative z-10 flex flex-col items-center justify-center w-full px-5 text-center mt-10">
         
-        <div class="flex flex-col gap-8 md:gap-12">
+        <div class="hero-el overflow-hidden mb-6 md:mb-8" style="--d:0ms">
+            <span class="inline-block px-5 py-2 border border-lime/30 rounded-full text-lime text-[10px] font-bold tracking-[0.3em] uppercase bg-lime/5">
+                The Official Home of Drop 11
+            </span>
+        </div>
+
+        <h1 class="hero-el font-display font-black uppercase text-[5rem] sm:text-[7rem] md:text-[9.5rem] lg:text-[13rem] leading-[0.85] tracking-tighter text-txt drop-shadow-2xl" style="--d:150ms">
+            DROP <span class="text-lime inline-block hover:scale-105 transition-transform duration-500">XI</span>
+        </h1>
+
+        <!-- Elegant Horizontal Urdu Poetry -->
+        <div class="hero-el mt-8 md:mt-12 mb-4 max-w-2xl px-4" style="--d:300ms">
+            <p class="text-2xl md:text-3xl text-txt font-light leading-relaxed text-center" style="font-family: 'Noto Nastaliq Urdu', serif;" dir="rtl">
+                کوئی میرے دل سے پوچھے ترے تیر نیم کش کو<br class="hidden sm:block">
+                <span class="text-lg md:text-xl text-txt-2 mt-2 block">یہ خلش کہاں سے ہوتی جو جگر کے پار ہوتا</span>
+            </p>
+        </div>
+
+        <div class="hero-el mt-8 md:mt-10 flex flex-col items-center gap-8" style="--d:450ms">
+            <p class="text-txt-2 text-xs sm:text-sm md:text-base font-medium tracking-[0.15em] uppercase max-w-lg leading-relaxed">
+                Precision on the pitch. Elegance in our game.
+            </p>
             
-            <!-- Top typography section -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
-                <div class="flex flex-col">
-                    <div class="hero-el flex items-center gap-3 mb-4" style="--d:80ms">
-                        <span class="w-8 h-px bg-lime"></span>
-                        <span class="text-[10px] font-semibold tracking-[0.3em] uppercase text-txt-2">Cricket Club</span>
-                    </div>
-
-                    <h1 class="hero-el" style="--d:0ms">
-                        <span class="block font-display font-bold text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[7.5rem] leading-[0.9] tracking-tight text-txt">
-                            DROP <span class="text-lime">11</span>
-                        </span>
-                    </h1>
-
-                    <p class="hero-el mt-6 text-[13px] font-medium tracking-[0.15em] uppercase text-txt-3 max-w-sm leading-relaxed" style="--d:200ms">
-                        A simple cricket team forged with passion and tradition.
-                    </p>
-                </div>
-                
-                <div class="hero-el flex items-center gap-4" style="--d:350ms">
-                    <a href="#squad" class="inline-flex items-center gap-2 px-6 py-3.5 bg-txt text-bg text-[11px] font-bold uppercase tracking-[0.12em] rounded-full hover:bg-lime hover:text-black transition-all duration-300">
-                        View Squad
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Premium Hero Image & Poetry -->
-            <div class="hero-el relative w-full h-[50vh] md:h-[65vh] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl" style="--d:450ms">
-                
-                <img src={heroImgUrl} alt="Vintage Cricket Ball on Kashmiri Rug" class="w-full h-full object-cover" />
-                
-                <!-- Elegant gradient overlay -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
-
-                <!-- Poetry Card overlaying the image -->
-                <div class="absolute bottom-6 right-6 md:bottom-10 md:right-10 max-w-xs sm:max-w-md bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8" dir="rtl">
-                    <span class="text-3xl text-lime/50 font-serif leading-none block mb-2">"</span>
-                    <p class="text-xl sm:text-2xl text-white leading-relaxed font-light mb-1" style="font-family: 'Noto Nastaliq Urdu', serif;">
-                        کوئی میرے دل سے پوچھے<br>
-                        <span class="text-lime/90">ترے تیر نیم کش کو</span>
-                    </p>
-                    <p class="text-sm sm:text-base text-white/60 leading-relaxed mt-2 font-light" style="font-family: 'Noto Nastaliq Urdu', serif;">
-                        یہ خلش کہاں سے ہوتی جو جگر کے پار ہوتا
-                    </p>
-                </div>
-
-            </div>
-
+            <a href="#squad" class="group relative px-10 py-4 md:py-5 bg-transparent overflow-hidden rounded-full border-2 border-stroke hover:border-lime transition-colors duration-500">
+                <div class="absolute inset-0 bg-lime translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></div>
+                <span class="relative z-10 text-xs font-bold uppercase tracking-[0.2em] text-txt group-hover:text-black transition-colors duration-500">
+                    Explore The Roster
+                </span>
+            </a>
         </div>
     </div>
+
 </header>
 
 <style>
     .hero-el {
         opacity: 0;
-        transform: translateY(20px);
-        animation: heroIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        transform: translateY(30px);
+        animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         animation-delay: var(--d, 0ms);
     }
-    @keyframes heroIn {
+    @keyframes heroFadeUp {
         to { opacity: 1; transform: translateY(0); }
     }
 </style>

@@ -16,14 +16,14 @@ import players from '../data/players.json';
         </div>
 
         <!-- Hidden List -->
-        <div id="cricheroes-list" class="hidden opacity-0 transition-all duration-500 ease-out grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
+        <div id="cricheroes-list" class="hidden opacity-0 transition-all duration-500 ease-out grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-2 sm:gap-y-4 mt-6 md:mt-0">
             {players.map((p, i) => (
-                <div class="flex items-center justify-between py-3 border-b border-stroke-2 hover:border-lime transition-colors duration-300">
-                    <div class="flex items-center gap-3">
-                        <span class="w-1.5 h-1.5 rounded-full bg-lime opacity-50"></span>
-                        <span class="font-display font-bold text-txt text-lg">{p.name}</span>
+                <div class="flex items-center justify-between py-2 sm:py-3 border-b border-stroke-2 hover:border-lime transition-colors duration-300">
+                    <div class="flex items-center gap-2 sm:gap-3 overflow-hidden">
+                        <span class="w-1.5 h-1.5 rounded-full bg-lime opacity-50 shrink-0"></span>
+                        <span class="font-display font-bold text-txt text-sm sm:text-lg truncate">{p.name}</span>
                     </div>
-                    <span class="font-mono text-sm text-lime bg-lime/10 px-3 py-1 rounded-md">
+                    <span class="font-mono text-xs sm:text-sm text-lime bg-lime/10 px-2 py-1 rounded-md shrink-0 ml-2">
                         {p.mobile}
                     </span>
                 </div>
