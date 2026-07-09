@@ -1,0 +1,58 @@
+---
+import players from '../data/players.json';
+---
+<section id="cricheroes" class="py-20 md:py-32 border-b border-stroke relative">
+    <div class="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-10 lg:px-12 text-center md:text-left">
+        <!-- Header & Button -->
+        <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+                <span class="text-lime text-[11px] font-semibold tracking-[0.25em] uppercase block mb-2">Directory</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight text-txt">Cricheroes Info</h2>
+            </div>
+            
+            <button id="view-cricheroes-btn" class="px-8 py-3.5 bg-lime hover:bg-lime/90 text-black font-display font-bold rounded-lg transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(204,255,0,0.3)]">
+                View Cricheroes Info
+            </button>
+        </div>
+
+        <!-- Hidden List -->
+        <div id="cricheroes-list" class="hidden opacity-0 transition-all duration-500 ease-out grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
+            {players.map((p, i) => (
+                <div class="flex items-center justify-between py-3 border-b border-stroke-2 hover:border-lime transition-colors duration-300">
+                    <div class="flex items-center gap-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-lime opacity-50"></span>
+                        <span class="font-display font-bold text-txt text-lg">{p.name}</span>
+                    </div>
+                    <span class="font-mono text-sm text-lime bg-lime/10 px-3 py-1 rounded-md">
+                        {p.mobile}
+                    </span>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<script is:inline>
+(() => {
+    const btn = document.getElementById('view-cricheroes-btn');
+    const list = document.getElementById('cricheroes-list');
+    
+    btn?.addEventListener('click', () => {
+        if (list.classList.contains('hidden')) {
+            list.classList.remove('hidden');
+            // Trigger reflow to apply opacity transition
+            void list.offsetWidth; 
+            list.classList.remove('opacity-0');
+            list.classList.add('opacity-100');
+            btn.textContent = 'Hide Cricheroes Info';
+        } else {
+            list.classList.add('opacity-0');
+            list.classList.remove('opacity-100');
+            setTimeout(() => {
+                list.classList.add('hidden');
+            }, 500); // Wait for transition
+            btn.textContent = 'View Cricheroes Info';
+        }
+    });
+})();
+</script>

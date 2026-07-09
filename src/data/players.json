@@ -1,13 +1,13 @@
 [
-  { "name": "Talib Mir", "imgUrl": "talib.jpeg" },
-  { "name": "Nasir Mir", "imgUrl": "nasir.jpeg" },
-  { "name": "Anna Adil", "imgUrl": "adil.jpeg" },
-  { "name": "Faizan Mir", "imgUrl": "faizan.jpeg" },
-  { "name": "Hazim Mushtaq", "imgUrl": "hazim.jpeg" },
-  { "name": "Danish Javid", "imgUrl": "danish.jpeg" },
-  { "name": "Yasir Hameed", "imgUrl": "yasir.jpeg" },
-  { "name": "Saqib Lefty", "imgUrl": "saqib.jpeg" },
-  { "name": "Basit Peer", "imgUrl": "" },
-  { "name": "Shahid Pacer", "imgUrl": "shahid.jpeg" },
-  { "name": "Manzoor Lone", "imgUrl": "manzoor.jpeg" }
+  { "name": "Talib Mir", "imgUrl": "talib.jpeg", "mobile": "7006054248" },
+  { "name": "Nasir Mir", "imgUrl": "nasir.jpeg", "mobile": "+91 98765 43211" },
+  { "name": "Anna Adil", "imgUrl": "adil.jpeg", "mobile": "+91 98765 43212" },
+  { "name": "Faizan Mir", "imgUrl": "faizan.jpeg", "mobile": "+91 98765 43213" },
+  { "name": "Hazim Mushtaq", "imgUrl": "hazim.jpeg", "mobile": "+91 98765 43214" },
+  { "name": "Danish Javid", "imgUrl": "danish.jpeg", "mobile": "+91 98765 43215" },
+  { "name": "Yasir Hameed", "imgUrl": "yasir.jpeg", "mobile": "+91 98765 43216" },
+  { "name": "Saqib Lefty", "imgUrl": "saqib.jpeg", "mobile": "+91 98765 43217" },
+  { "name": "Basit Peer", "imgUrl": "", "mobile": "+91 98765 43218" },
+  { "name": "Shahid Pacer", "imgUrl": "shahid.jpeg", "mobile": "+91 98765 43219" },
+  { "name": "Manzoor Lone", "imgUrl": "manzoor.jpeg", "mobile": "+91 98765 43220" }
 ]
