@@ -11,12 +11,15 @@ const parts = name.split(' ');
 const firstName = parts[0];
 const lastName = parts.slice(1).join(' ');
 const num = String(index + 1).padStart(2, '0');
+
+// Generate a deterministic mock Cricheroes number for this player
+const cricheroesId = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) * 13 + index * 7;
 ---
 <div class="group glow-card hover:-translate-y-1.5 transition-transform duration-500 cursor-pointer">
     <div class="glow-card-inner flex flex-col">
 
         <!-- Photo container -->
-        <div class="relative aspect-[3/4] overflow-hidden bg-black">
+        <div class="relative aspect-square sm:aspect-[3/4] overflow-hidden bg-black">
             <img
                 src={resolvePath(imgUrl)}
                 alt={name}
@@ -47,9 +50,12 @@ const num = String(index + 1).padStart(2, '0');
             </div>
         </div>
 
-        <!-- Bottom bar with role + action -->
+        <!-- Bottom bar with Cricheroes ID -->
         <div class="px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-between border-t border-stroke bg-surface">
-            <span class="text-[9px] font-semibold tracking-[0.2em] uppercase text-txt-3 group-hover:text-txt-2 transition-colors duration-300">Squad Member</span>
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-lime"></span>
+                <span class="text-[9px] font-semibold tracking-[0.15em] uppercase text-txt-2">Cricheroes: #{cricheroesId}</span>
+            </div>
             <div class="w-6 h-6 rounded-full border border-stroke-2 flex items-center justify-center group-hover:bg-lime group-hover:border-lime transition-all duration-300">
                 <svg class="w-2.5 h-2.5 text-txt-3 group-hover:text-black transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/>

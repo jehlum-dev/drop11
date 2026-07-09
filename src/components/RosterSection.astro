@@ -20,7 +20,7 @@ const shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
         </div>
 
         <!-- Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 stagger">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-5 stagger">
             {shuffledPlayers.map((p, i) => (
                 <div class="reveal" style={`--i:${i}`}>
                     <PlayerCard name={p.name} imgUrl={p.imgUrl} index={i} />

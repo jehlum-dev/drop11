@@ -18,6 +18,18 @@
   --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
 }
 
+.light-theme {
+  --color-bg: #ffffff;
+  --color-surface: #f4f4f5;
+  --color-elevated: #e4e4e7;
+  --color-lime: #16a34a; /* Darker green for visibility on white */
+  --color-txt: #18181b;
+  --color-txt-2: #3f3f46;
+  --color-txt-3: #71717a;
+  --color-stroke: rgba(0, 0, 0, 0.08);
+  --color-stroke-2: rgba(0, 0, 0, 0.15);
+}
+
 /* ── Base ─────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
@@ -45,8 +57,8 @@ body {
 /* ── The content panel that sits on top of the rug ── */
 .content-panel {
   max-width: 1200px;
-  /* On mobile, leave margin only on the sides */
-  width: calc(100% - 24px);
+  /* On mobile, leave margin only on the sides, slightly more now (20px each) */
+  width: calc(100% - 40px);
   margin: 0 auto;
   background: var(--color-bg);
   position: relative;

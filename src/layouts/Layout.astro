@@ -6,8 +6,8 @@ const {
 } = Astro.props;
 const ogImage = "/og-image.jpg";
 
-// Ensure the rug image uses the correct base path for production
-const rugImg = import.meta.env.BASE_URL + 'rug-pattern.jpg';
+// The base path is needed for GitHub Pages
+const baseUrl = import.meta.env.BASE_URL;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -34,13 +34,27 @@ const rugImg = import.meta.env.BASE_URL + 'rug-pattern.jpg';
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
-<body class="selection:bg-lime selection:text-black" style={`background-image: url('${rugImg.replace('//', '/')}');`}>
+<body class="selection:bg-lime selection:text-black">
     <!-- The rug pattern is applied to the body. This panel contains all the actual site content with a black background. -->
     <div class="content-panel">
         <slot />
     </div>
 
-    <script is:inline>
+    <script is:inline define:vars={{ baseUrl }}>
+        // Random background patterns
+        const patterns = [
+            'rug-pattern.jpg',
+            'patterns/pattern_rug_bright_1783620149317.jpg',
+            'patterns/pattern_cricket_grass_1783620639224.jpg',
+            'patterns/pattern_cricket_lords_1783620629001.jpg'
+        ];
+        // Pick a random pattern on every refresh
+        const randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
+        // Construct the full URL keeping base URL in mind
+        const imgUrl = (baseUrl + randomPattern).replace(/\/\//g, '/');
+        document.body.style.backgroundImage = `url('${imgUrl}')`;
+
+        // Scroll reveal logic
         const obs = new IntersectionObserver(
             entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }),
             { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
